@@ -5,12 +5,14 @@ import controlador.algoritmos.ListaEnlazada;
 
 public class Hotel {
     private String nombre;
+    private String distrito;
     private String direccion;
     private String telefono;
     private HabitacionControl Habitaciones = new HabitacionControl();
 
-    public Hotel(String nombre, String direccion, String telefono) {
+    public Hotel(String nombre, String distrito, String direccion, String telefono) {
         this.nombre = nombre;
+        this.distrito = distrito;
         this.direccion = direccion;
         this.telefono = telefono;
     }
@@ -21,6 +23,14 @@ public class Hotel {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getDistrito() {
+        return distrito;
+    }
+
+    public void setDistrito(String distrito) {
+        this.distrito = distrito;
     }
 
     public String getDireccion() {
@@ -51,6 +61,7 @@ public class Hotel {
     public String toString() {
         return "Hotel{" +
                 "nombre='" + nombre + '\'' +
+                ", distrito='" + distrito + '\'' +
                 ", direccion='" + direccion + '\'' +
                 ", telefono='" + telefono + '\'' +
                 ", Habitaciones=" + Habitaciones.getCantidadHabitaciones() +

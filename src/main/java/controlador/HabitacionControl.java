@@ -3,20 +3,11 @@ package controlador;
 import modelo.Habitacion;
 import controlador.algoritmos.ListaEnlazada;
 
-/*
-Ingreso y actualización de datos de las habitaciones del hotel.
-
-- Habitacion
-   - Numero
-   - Piso
-   - CantidadCamas
-   - PrecioDia
-   - Estado
- */
 public class HabitacionControl {
 
-    private ListaEnlazada<Habitacion> listaHabitaciones = new ListaEnlazada<Habitacion>();
+    private int id = 1;
 
+    private ListaEnlazada<Habitacion> listaHabitaciones = new ListaEnlazada<Habitacion>();
 
     public ListaEnlazada<Habitacion> getListaHabitaciones() {
         return listaHabitaciones;
@@ -28,20 +19,38 @@ public class HabitacionControl {
 
     public void agregarHabitacion(Habitacion habitacion) {
         this.listaHabitaciones.insertarAlFinal(habitacion);
+        habitacion.setId(id);
+        id++;
     }
 
-    public Habitacion buscarHabitacion(int numero, int piso) {
+    public Habitacion buscarHabitacion(int id) {
         Habitacion habitacion = null;
         for (int i = 0; i < this.listaHabitaciones.getTamanio(); i++) {
-            if (this.listaHabitaciones.obtener(i).getNumero() == numero && this.listaHabitaciones.obtener(i).getPiso() == piso) {
+            if (this.listaHabitaciones.obtener(i).getId() == id) {
                 habitacion = this.listaHabitaciones.obtener(i);
             }
         }
         return habitacion;
     }
 
+    public void actualizarHabitacion(Habitacion habitacion, Habitacion nuevaHabitacion) {
+        habitacion.setNumero(nuevaHabitacion.getNumero());
+        habitacion.setPiso(nuevaHabitacion.getPiso());
+        habitacion.setCantidadCamas(nuevaHabitacion.getCantidadCamas());
+        habitacion.setPrecioDia(nuevaHabitacion.getPrecioDia());
+        habitacion.setEstado(nuevaHabitacion.getEstado());
+    }
+
     public void eliminarHabitacion(Habitacion habitacion) {
         this.listaHabitaciones.eliminar(habitacion);
+    }
+
+    public void cambiarEstado(Habitacion habitacion, String estado) {
+        habitacion.setEstado(estado);
+    }
+
+    public void ocuparHabitacion(Habitacion habitacion) {
+        habitacion.setEstado("Ocupada");
     }
 
     @Override

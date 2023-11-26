@@ -1,11 +1,13 @@
 package modelo;
 
 public class Habitacion {
+
+    private int id;
     private int numero;
     private int piso;
     private int cantidadCamas;
     private double precioDia;
-    private String estado; // estado(disponible, en uso, disponible-limpieza , en uso-limpieza)
+    private String estado; // estado(disponible, ocupada, disponible-limpieza , en ocupada-limpieza)
 
     public Habitacion(int numero, int piso, int cantidadCamas, double precioDia) {
         this.numero = numero;
@@ -13,6 +15,14 @@ public class Habitacion {
         this.cantidadCamas = cantidadCamas;
         this.precioDia = precioDia;
         this.estado = "disponible";
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getNumero() {
@@ -58,7 +68,8 @@ public class Habitacion {
     @Override
     public String toString() {
         return "Habitacion{" +
-                "numero=" + numero +
+                "id=" + id +
+                ", numero=" + numero +
                 ", piso=" + piso +
                 ", cantidadCamas=" + cantidadCamas +
                 ", precioDia=" + precioDia +
