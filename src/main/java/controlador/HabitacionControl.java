@@ -41,8 +41,10 @@ public class HabitacionControl {
         habitacion.setEstado(nuevaHabitacion.getEstado());
     }
 
-    public void eliminarHabitacion(Habitacion habitacion) {
+    public Habitacion eliminarHabitacion(int id) {
+        Habitacion habitacion = buscarHabitacion(id);
         this.listaHabitaciones.eliminar(habitacion);
+        return habitacion;
     }
 
     public void cambiarEstado(Habitacion habitacion, String estado) {

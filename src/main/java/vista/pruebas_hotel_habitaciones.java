@@ -21,6 +21,8 @@ public class pruebas_hotel_habitaciones {
         System.out.println(" ");
 
         System.out.println(hotel.getCantidadHabitaciones());
+        System.out.println(hotel.getCantidadHabitacionesDisponibles());
+        System.out.println(hotel.getCantidadHabitacionesOcupadas());
 
         System.out.println(" ");
 
@@ -28,7 +30,11 @@ public class pruebas_hotel_habitaciones {
 
         System.out.println(" ");
 
-        hotel.eliminarHabitacion(hotel.buscarHabitacion(1));
+        System.out.println("Eliminado: " + hotel.eliminarHabitacion(2));
+        System.out.println(hotel.getCantidadHabitacionesDisponibles());
+        System.out.println(hotel.getCantidadHabitacionesOcupadas());
+
+        System.out.println(" ");
 
         System.out.println(hotel.getHotel());
 

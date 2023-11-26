@@ -19,6 +19,27 @@ public class HotelControl {
         return this.hotel.getHabitaciones().getCantidadHabitaciones();
     }
 
+    //cantidad de habitaciones: disponible, ocupada, disponible-limpieza , en ocupada-limpieza
+    public int getCantidadHabitacionesDisponibles() {
+        int cantidad = 0;
+        for (int i = 0; i < this.hotel.getHabitaciones().getListaHabitaciones().getTamanio(); i++) {
+            if (this.hotel.getHabitaciones().getListaHabitaciones().obtener(i).getEstado().equals("disponible")) {
+                cantidad++;
+            }
+        }
+        return cantidad;
+    }
+
+    public int getCantidadHabitacionesOcupadas() {
+        int cantidad = 0;
+        for (int i = 0; i < this.hotel.getHabitaciones().getListaHabitaciones().getTamanio(); i++) {
+            if (this.hotel.getHabitaciones().getListaHabitaciones().obtener(i).getEstado().equals("ocupada")) {
+                cantidad++;
+            }
+        }
+        return cantidad;
+    }
+
     public Habitacion buscarHabitacion(int id) {
         return this.hotel.getHabitaciones().buscarHabitacion(id);
     }
@@ -31,8 +52,8 @@ public class HotelControl {
         this.hotel.getHabitaciones().actualizarHabitacion(habitacion, nuevaHabitacion);
     }
 
-    public void eliminarHabitacion(Habitacion habitacion) {
-        this.hotel.getHabitaciones().eliminarHabitacion(habitacion);
+    public Habitacion eliminarHabitacion(int id) {
+        return  hotel.getHabitaciones().eliminarHabitacion(id);
     }
 
     public void estadoDisponible(Habitacion habitacion) {
