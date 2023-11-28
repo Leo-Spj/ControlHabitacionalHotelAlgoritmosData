@@ -1,4 +1,4 @@
-package controlador.algoritmos;
+package algoritmos;
 
 import modelo.Habitacion;
 

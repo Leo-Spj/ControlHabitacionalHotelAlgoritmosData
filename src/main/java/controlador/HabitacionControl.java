@@ -1,7 +1,7 @@
 package controlador;
 
 import modelo.Habitacion;
-import controlador.algoritmos.ListaEnlazada;
+import algoritmos.ListaEnlazada;
 
 public class HabitacionControl {
 

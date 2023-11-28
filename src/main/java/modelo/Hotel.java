@@ -1,7 +1,6 @@
 package modelo;
 
 import controlador.HabitacionControl;
-import controlador.algoritmos.ListaEnlazada;
 
 public class Hotel {
     private String nombre;
