@@ -1,9 +1,7 @@
 package algoritmos;
 
-import modelo.Habitacion;
-
 // Haciendola generica podremos usarla para cualquier tipo de dato, nos conviene
-public class ListaEnlazada <T> {
+public class ListaEnlazadaDoble<T> {
 
     // Creé esta clase estatica Nodo que nos servirá para crear los nodos de la lista sin tener que crear una clase Nodo afuera
     // y es generica para que pueda ser usada por cualquier tipo de dato
@@ -22,7 +20,7 @@ public class ListaEnlazada <T> {
     private Nodo<T> ultimo;
     private int tamanio;
 
-    public ListaEnlazada() {
+    public ListaEnlazadaDoble() {
         this.primero = null;
         this.ultimo = null;
         this.tamanio = 0;
@@ -32,8 +30,28 @@ public class ListaEnlazada <T> {
         return this.primero == null;
     }
 
+    public Nodo<T> getPrimero() {
+        return primero;
+    }
+
+    public void setPrimero(Nodo<T> primero) {
+        this.primero = primero;
+    }
+
+    public Nodo<T> getUltimo() {
+        return ultimo;
+    }
+
+    public void setUltimo(Nodo<T> ultimo) {
+        this.ultimo = ultimo;
+    }
+
     public int getTamanio() {
-        return this.tamanio;
+        return tamanio;
+    }
+
+    public void setTamanio(int tamanio) {
+        this.tamanio = tamanio;
     }
 
     public void insertarAlInicio(T dato) {

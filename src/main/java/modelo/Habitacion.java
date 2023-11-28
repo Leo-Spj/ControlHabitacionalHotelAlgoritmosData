@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.Comparator;
+
 public class Habitacion {
 
     private int id;
@@ -75,5 +77,15 @@ public class Habitacion {
                 ", precioDia=" + precioDia +
                 ", estado='" + estado + '\'' +
                 '}';
+    }
+
+    public static class ComparadorPorPiso implements Comparator<Habitacion> {
+        @Override
+        public int compare(Habitacion o1, Habitacion o2) {
+            String pisoYNumero1 = o1.getPiso() + "-" + o1.getNumero();
+            String pisoYNumero2 = o2.getPiso() + "-" + o2.getNumero();
+
+            return pisoYNumero1.compareTo(pisoYNumero2);
+        }
     }
 }
