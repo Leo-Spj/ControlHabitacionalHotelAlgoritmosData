@@ -3,21 +3,9 @@ package algoritmos;
 // Haciendola generica podremos usarla para cualquier tipo de dato, nos conviene
 public class ListaEnlazadaDoble<T> {
 
-    // Creé esta clase estatica Nodo que nos servirá para crear los nodos de la lista sin tener que crear una clase Nodo afuera
-    // y es generica para que pueda ser usada por cualquier tipo de dato
-    private static class Nodo<T> {
-        private T dato;
-        private Nodo<T> siguiente;
-        private Nodo<T> anterior;
-
-        public Nodo(T dato) {
-            this.dato = dato;
-            this.siguiente = null;
-        }
-    }
-
-    private Nodo<T> primero;
-    private Nodo<T> ultimo;
+    // NodoLista
+    private NodoLista<T> primero;
+    private NodoLista<T> ultimo;
     private int tamanio;
 
     public ListaEnlazadaDoble() {
@@ -30,51 +18,27 @@ public class ListaEnlazadaDoble<T> {
         return this.primero == null;
     }
 
-    public Nodo<T> getPrimero() {
-        return primero;
-    }
-
-    public void setPrimero(Nodo<T> primero) {
-        this.primero = primero;
-    }
-
-    public Nodo<T> getUltimo() {
-        return ultimo;
-    }
-
-    public void setUltimo(Nodo<T> ultimo) {
-        this.ultimo = ultimo;
-    }
-
-    public int getTamanio() {
-        return tamanio;
-    }
-
-    public void setTamanio(int tamanio) {
-        this.tamanio = tamanio;
-    }
-
     public void insertarAlInicio(T dato) {
-        Nodo<T> nuevo = new Nodo<T>(dato);
+        NodoLista<T> nuevo = new NodoLista<T>(dato);
         if (estaVacia()) {
             this.primero = nuevo;
             this.ultimo = nuevo;
         } else {
-            nuevo.siguiente = this.primero;
-            this.primero.anterior = nuevo;
+            nuevo.setSiguiente(this.primero);
+            this.primero.setAnterior(nuevo);
             this.primero = nuevo;
         }
         this.tamanio++;
     }
 
     public void insertarAlFinal(T dato) {
-        Nodo<T> nuevo = new Nodo<T>(dato);
+        NodoLista<T> nuevo = new NodoLista<T>(dato);
         if (estaVacia()) {
             this.primero = nuevo;
             this.ultimo = nuevo;
         } else {
-            nuevo.anterior = this.ultimo;
-            this.ultimo.siguiente = nuevo;
+            nuevo.setAnterior(this.ultimo);
+            this.ultimo.setSiguiente(nuevo);
             this.ultimo = nuevo;
         }
         this.tamanio++;
@@ -82,51 +46,51 @@ public class ListaEnlazadaDoble<T> {
 
     public void eliminarAlInicio() {
         if (!estaVacia()) {
-            this.primero = this.primero.siguiente;
-            this.primero.anterior = null;
+            if (this.primero.getSiguiente() == null) {
+                this.primero = null;
+                this.ultimo = null;
+            } else {
+                this.primero = this.primero.getSiguiente();
+                this.primero.setAnterior(null);
+            }
             this.tamanio--;
         }
     }
 
     public void eliminarAlFinal() {
         if (!estaVacia()) {
-            this.ultimo = this.ultimo.anterior;
-            this.ultimo.siguiente = null;
+            if (this.primero.getSiguiente() == null) {
+                this.primero = null;
+                this.ultimo = null;
+            } else {
+                this.ultimo = this.ultimo.getAnterior();
+                this.ultimo.setSiguiente(null);
+            }
             this.tamanio--;
         }
     }
 
-    public void eliminar(T dato) {
-        if (!estaVacia()) {
-            if (this.primero.dato.equals(dato)) {
-                eliminarAlInicio();
-            } else if (this.ultimo.dato.equals(dato)) {
-                eliminarAlFinal();
-            } else {
-                Nodo<T> aux = this.primero;
-                while (aux != null && !aux.dato.equals(dato)) {
-                    aux = aux.siguiente;
-                }
-                if (aux != null) {
-                    aux.anterior.siguiente = aux.siguiente;
-                    aux.siguiente.anterior = aux.anterior;
-                    this.tamanio--;
-                }
-            }
-        }
+    public T getPrimero() {
+        return this.primero.getDato();
+    }
+
+    public T getUltimo() {
+        return this.ultimo.getDato();
+    }
+
+    public int getTamanio() {
+        return this.tamanio;
     }
 
     public T obtener(int indice) {
-        if (!estaVacia()) {
-            Nodo<T> aux = this.primero;
-            int i = 0;
-            while (aux != null && i < indice) {
-                aux = aux.siguiente;
-                i++;
+        if (indice >= 0 && indice < this.tamanio) {
+            NodoLista<T> aux = this.primero;
+            int contador = 0;
+            while (contador < indice) {
+                aux = aux.getSiguiente();
+                contador++;
             }
-            if (aux != null) {
-                return aux.dato;
-            }
+            return aux.getDato();
         }
         return null;
     }
