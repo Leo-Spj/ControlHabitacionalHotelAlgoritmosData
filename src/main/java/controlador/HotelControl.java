@@ -1,6 +1,6 @@
 package controlador;
 
-import algoritmos.ListaEnlazadaDoble;
+import algoritmos.ListaDoblePilaCola;
 import modelo.Habitacion;
 import modelo.Hotel;
 
@@ -23,9 +23,12 @@ public class HotelControl {
         this.hotel.getHabitaciones().agregarHabitacionABB(habitacion);
     }
 
-    // preorden
-    public ListaEnlazadaDoble<Habitacion> imprimirArbolPreorden() {
-        return this.hotel.getHabitaciones().obtenerHabitacionesInOrden();
+    // inorden
+    public ListaDoblePilaCola<Habitacion> imprimirArbolInorden_Estado() {
+        return this.hotel.getHabitaciones().obtenerPorEstadoInOrden();
+    }
+    public ListaDoblePilaCola<Habitacion> imprimirArbolInorden_Piso() {
+        return this.hotel.getHabitaciones().obtenerPorPisoInOrden();
     }
 
 

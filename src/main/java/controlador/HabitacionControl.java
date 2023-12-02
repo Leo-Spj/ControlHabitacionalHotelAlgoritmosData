@@ -2,38 +2,49 @@ package controlador;
 
 import algoritmos.ArbolBinario;
 import modelo.Habitacion;
-import algoritmos.ListaEnlazadaDoble;
+import algoritmos.ListaDoblePilaCola;
 
 public class HabitacionControl {
 
     private int id = 1;
 
-    private ListaEnlazadaDoble<Habitacion> listaHabitaciones = new ListaEnlazadaDoble<Habitacion>();
+    private ArbolBinario<Habitacion> arbol_porPiso = new ArbolBinario<Habitacion>(new Habitacion.ComparadorPorPiso());
+    private ArbolBinario<Habitacion> arbol_porEstado= new ArbolBinario<Habitacion>(new Habitacion.ComparadorPorEstado());
+
 
     public int getCantidadHabitaciones() {
-        return this.listaHabitaciones.getTamanio();
+        return this.arbol_porPiso.getLista().getTamanio();
     }
 
 
-    // ========= Metodos para el ABB ===========
-
-    ArbolBinario<Habitacion> arbol = new ArbolBinario<Habitacion>(new Habitacion.ComparadorPorPiso());
-
     public void agregarHabitacionABB(Habitacion habitacion) {
-        arbol.insertar(habitacion);
+        arbol_porPiso.insertar(habitacion);
+        arbol_porEstado.insertar(habitacion);
         habitacion.setId(id);
         id++;
     }
 
-    public ListaEnlazadaDoble<Habitacion> obtenerHabitacionesInOrden() {
-        return arbol.inorden();
+    //modificar estado
+    public void modificarEstado(int id, String estado) {
+        Habitacion habitacion = arbol_porPiso.getLista().obtener(id);
+        habitacion.setEstado(estado);
     }
 
+
+
+    // inorden
+    public ListaDoblePilaCola<Habitacion> obtenerPorPisoInOrden() {
+        return arbol_porPiso.inorden();
+    }
+    public ListaDoblePilaCola<Habitacion> obtenerPorEstadoInOrden() {
+        return arbol_porEstado.inorden();
+    }
 
     @Override
     public String toString() {
         return "HabitacionControl{" +
-                "listaHabitaciones=" + listaHabitaciones +
+                "listaHabitaciones=" + arbol_porPiso.getLista().toString() +
                 '}';
     }
+
 }

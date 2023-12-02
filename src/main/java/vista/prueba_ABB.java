@@ -1,7 +1,6 @@
 package vista;
 
-import algoritmos.ListaEnlazadaDoble;
-import controlador.HabitacionControl;
+import algoritmos.ListaDoblePilaCola;
 import controlador.HotelControl;
 import modelo.Habitacion;
 
@@ -27,16 +26,11 @@ public class prueba_ABB {
 
         // imprimo el arbol en preorden
 
-        ListaEnlazadaDoble<Habitacion> listaHabitaciones = hotel.imprimirArbolPreorden();
+        ListaDoblePilaCola<Habitacion> listaHabitaciones = hotel.imprimirArbolInorden_Piso();
         for (int i = 0; i < listaHabitaciones.getTamanio(); i++) {
             System.out.println(listaHabitaciones.obtener(i).getPiso()+"-"+listaHabitaciones.obtener(i).getNumero());
-            System.out.println(listaHabitaciones.obtener(i).toString());
-            System.out.println(" ");
+            //System.out.println(listaHabitaciones.obtener(i).toString());
         }
-
-
-
-
 
     }
 }

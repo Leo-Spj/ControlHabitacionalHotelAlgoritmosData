@@ -52,9 +52,9 @@ public class Hotel {
         return Habitaciones;
     }
 
-    public void setHabitaciones(HabitacionControl habitaciones) {
+    /*public void setHabitaciones(HabitacionControl habitaciones) {
         Habitaciones = habitaciones;
-    }
+    }*/
 
     @Override
     public String toString() {

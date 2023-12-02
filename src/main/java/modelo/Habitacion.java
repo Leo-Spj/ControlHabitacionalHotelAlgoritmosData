@@ -16,7 +16,7 @@ public class Habitacion {
         this.piso = piso;
         this.cantidadCamas = cantidadCamas;
         this.precioDia = precioDia;
-        this.estado = "disponible";
+        this.estado = "Disponible";
     }
 
     public int getId() {
@@ -86,6 +86,16 @@ public class Habitacion {
             String pisoYNumero2 = o2.getPiso() + "-" + o2.getNumero();
 
             return pisoYNumero1.compareTo(pisoYNumero2);
+        }
+    }
+
+    public static class ComparadorPorEstado implements Comparator<Habitacion> {
+        @Override
+        public int compare(Habitacion o1, Habitacion o2) {
+            String estado1 = o1.getEstado();
+            String estado2 = o2.getEstado();
+
+            return estado1.compareTo(estado2);
         }
     }
 }
