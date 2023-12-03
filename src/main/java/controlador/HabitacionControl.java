@@ -1,6 +1,6 @@
 package controlador;
 
-import algoritmos.ArbolBinario;
+import algoritmos.Ordenamiento;
 import modelo.Habitacion;
 import algoritmos.ListaDoblePilaCola;
 
@@ -8,43 +8,39 @@ public class HabitacionControl {
 
     private int id = 1;
 
-    private ArbolBinario<Habitacion> arbol_porPiso = new ArbolBinario<Habitacion>(new Habitacion.ComparadorPorPiso());
-    private ArbolBinario<Habitacion> arbol_porEstado= new ArbolBinario<Habitacion>(new Habitacion.ComparadorPorEstado());
-
+    private ListaDoblePilaCola<Habitacion> listaHabitaciones = new ListaDoblePilaCola<>();
 
     public int getCantidadHabitaciones() {
-        return this.arbol_porPiso.getLista().getTamanio();
+        return listaHabitaciones.getTamanio();
     }
 
-
-    public void agregarHabitacionABB(Habitacion habitacion) {
-        arbol_porPiso.insertar(habitacion);
-        arbol_porEstado.insertar(habitacion);
+    public void agregarHabitacion(int numero, int piso, int cantidadCamas, double precioDia) {
+        Habitacion habitacion = new Habitacion(numero, piso, cantidadCamas, precioDia);
         habitacion.setId(id);
         id++;
+        listaHabitaciones.insertarAlFinal(habitacion);
     }
 
-    //modificar estado
-    public void modificarEstado(int id, String estado) {
-        Habitacion habitacion = arbol_porPiso.getLista().obtener(id);
-        habitacion.setEstado(estado);
+    public ListaDoblePilaCola<Habitacion> getListaHabitaciones() {
+        return listaHabitaciones;
+    }
+
+    public ListaDoblePilaCola<Habitacion> getHabitacionesOrdenadasPorPiso() {
+        Ordenamiento<Habitacion> ordenamiento = new Ordenamiento<>();
+        return ordenamiento.ordenarListaPorInsercion(listaHabitaciones, new Habitacion.ComparadorPorPiso());
+    }
+
+    public ListaDoblePilaCola<Habitacion> getHabitacionesOrdenadasPorEstado() {
+        Ordenamiento<Habitacion> ordenamiento = new Ordenamiento<>();
+        return ordenamiento.ordenarListaPorInsercion(listaHabitaciones, new Habitacion.ComparadorPorEstado());
     }
 
 
-
-    // inorden
-    public ListaDoblePilaCola<Habitacion> obtenerPorPisoInOrden() {
-        return arbol_porPiso.inorden();
-    }
-    public ListaDoblePilaCola<Habitacion> obtenerPorEstadoInOrden() {
-        return arbol_porEstado.inorden();
-    }
 
     @Override
     public String toString() {
         return "HabitacionControl{" +
-                "listaHabitaciones=" + arbol_porPiso.getLista().toString() +
+                "listaHabitaciones=" + listaHabitaciones.getPrimero().toString() +
                 '}';
     }
-
 }

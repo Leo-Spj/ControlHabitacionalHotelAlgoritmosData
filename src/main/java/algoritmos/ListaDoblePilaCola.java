@@ -81,7 +81,7 @@ public class ListaDoblePilaCola<T> {
         }
     }
 
-    public T obtener(int indice) {
+    public T obtenerIndice(int indice) {
         if (indice >= 0 && indice < this.tamanio) {
             Nodo<T> aux = this.primero;
             int contador = 0;
@@ -94,38 +94,21 @@ public class ListaDoblePilaCola<T> {
         return null;
     }
 
-    // Eliminar:
-    public void eliminar(T dato) {
-        if (!estaVacia()) {
-            this.primero = eliminarRecursivo(this.primero, dato);
+    public void intercambiar(int i, int minimo) {
+        Nodo<T> aux = this.primero;
+        Nodo<T> aux2 = this.primero;
+        int contador = 0;
+        while (contador < i) {
+            aux = aux.getDerecho_siguiente();
+            contador++;
         }
-    }
-    private Nodo<T> eliminarRecursivo(Nodo<T> raizActual, T dato) {
-        if (raizActual == null) {
-            return null;
-        } else if (dato.equals(raizActual.getDato())) {
-            if (raizActual.getIzquierdo_anterior() == null && raizActual.getDerecho_siguiente() == null) {
-                return null;
-            } else if (raizActual.getIzquierdo_anterior() == null) {
-                raizActual.getDerecho_siguiente().setIzquierdo_anterior(null);
-                return raizActual.getDerecho_siguiente();
-            } else if (raizActual.getDerecho_siguiente() == null) {
-                raizActual.getIzquierdo_anterior().setDerecho_siguiente(null);
-                return raizActual.getIzquierdo_anterior();
-            } else {
-                Nodo<T> aux = raizActual.getDerecho_siguiente();
-                while (aux.getIzquierdo_anterior() != null) {
-                    aux = aux.getIzquierdo_anterior();
-                }
-                raizActual.setDato(aux.getDato());
-                raizActual.setDerecho_siguiente(eliminarRecursivo(raizActual.getDerecho_siguiente(), aux.getDato()));
-            }
-        } else if (dato.hashCode() < raizActual.getDato().hashCode()) {
-            raizActual.setIzquierdo_anterior(eliminarRecursivo(raizActual.getIzquierdo_anterior(), dato));
-        } else {
-            raizActual.setDerecho_siguiente(eliminarRecursivo(raizActual.getDerecho_siguiente(), dato));
+        contador = 0;
+        while (contador < minimo) {
+            aux2 = aux2.getDerecho_siguiente();
+            contador++;
         }
-        return raizActual;
+        T dato = aux.getDato();
+        aux.setDato(aux2.getDato());
+        aux2.setDato(dato);
     }
-
 }
