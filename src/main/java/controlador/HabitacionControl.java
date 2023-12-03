@@ -27,12 +27,12 @@ public class HabitacionControl {
 
     public ListaDoblePilaCola<Habitacion> getHabitacionesOrdenadasPorPiso() {
         Ordenamiento<Habitacion> ordenamiento = new Ordenamiento<>();
-        return ordenamiento.ordenarListaPorInsercion(listaHabitaciones, new Habitacion.ComparadorPorPiso());
+        return ordenamiento.porInsercion(listaHabitaciones, new Habitacion.ComparadorPorPiso());
     }
 
     public ListaDoblePilaCola<Habitacion> getHabitacionesOrdenadasPorEstado() {
         Ordenamiento<Habitacion> ordenamiento = new Ordenamiento<>();
-        return ordenamiento.ordenarListaPorInsercion(listaHabitaciones, new Habitacion.ComparadorPorEstado());
+        return ordenamiento.deBurbuja(listaHabitaciones, new Habitacion.ComparadorPorEstado());
     }
 
 
