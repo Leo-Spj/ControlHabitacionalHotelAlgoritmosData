@@ -50,6 +50,14 @@ public class HotelControl {
         hotel.getHabitaciones().atenderHabitacionPorPila();
     }
 
+
+
+    // Reportes
+    public int reporteHabitacionesOcupadas(){
+        return hotel.getHabitaciones().reporteHabitacionesOcupadas();
+    }
+
+
     @Override
     public String toString() {
         return "HotelControl{" +

@@ -51,5 +51,11 @@ public class prueba_ABB {
             System.out.println(habitacionesPorEstado.obtenerIndice(i).getPiso()+"-"+habitacionesPorEstado.obtenerIndice(i).getNumero() + " " + habitacionesPorEstado.obtenerIndice(i).getEstado());
         }
 
+
+        System.out.println("\nReporte monto del dia (Habitaciones Ocupadas):");
+        int monto = hotel.reporteHabitacionesOcupadas();
+        System.out.println(monto);
+
+
     }
 }

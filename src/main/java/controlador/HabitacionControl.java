@@ -73,6 +73,16 @@ public class HabitacionControl {
         }
     }
 
+    public int reporteHabitacionesOcupadas(){
+        int monto = 0;
+
+        for (int i = 0; i < listaHabitaciones.getTamanio(); i++ ){
+            if(listaHabitaciones.obtenerIndice(i).getEstado().equals("Ocupada"))
+                monto += listaHabitaciones.obtenerIndice(i).getPrecioDia();
+        }
+        return monto;
+    }
+
 
     @Override
     public String toString() {
