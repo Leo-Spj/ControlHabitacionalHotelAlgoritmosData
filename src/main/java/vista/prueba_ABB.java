@@ -12,17 +12,17 @@ public class prueba_ABB {
 
         HotelControl hotel = new HotelControl("Hotel", "Lima", "Av. Los Alamos", "123456789");
         hotel.agregarHabitacion(1, 1, 1, 100);
-        hotel.agregarHabitacion(2, 1, 3, 150);
+        hotel.agregarHabitacion(1, 2, 3, 150);
         hotel.agregarHabitacion(3, 3, 2, 120);
-        hotel.agregarHabitacion(4, 3, 1, 100);
-        hotel.agregarHabitacion(3, 2, 2, 120);
-        hotel.agregarHabitacion(4, 2, 1, 100);
-        hotel.agregarHabitacion(3, 1, 2, 120);
-        hotel.agregarHabitacion(4, 1, 1, 100);
-        hotel.agregarHabitacion(1, 2, 1, 100);
+        hotel.agregarHabitacion(3, 4, 1, 100);
+        hotel.agregarHabitacion(2, 3, 2, 120);
+        hotel.agregarHabitacion(2, 4, 1, 100);
+        hotel.agregarHabitacion(1, 3, 2, 120);
+        hotel.agregarHabitacion(1, 4, 1, 100);
+        hotel.agregarHabitacion(2, 1, 1, 100);
         hotel.agregarHabitacion(2, 2, 3, 150);
-        hotel.agregarHabitacion(1, 3, 1, 100);
-        hotel.agregarHabitacion(2, 3, 3, 150);
+        hotel.agregarHabitacion(3, 1, 1, 100);
+        hotel.agregarHabitacion(3, 2, 3, 150);
 
 
         // Cambio estado, no usar de esta manera, es solo para la prueba

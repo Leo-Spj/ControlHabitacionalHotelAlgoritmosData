@@ -11,15 +11,15 @@ public class HabitacionControl {
 
     private ListaDoblePilaCola<Habitacion> listaHabitaciones = new ListaDoblePilaCola<>();
     private Ordenamiento<Habitacion> ordenamiento = new Ordenamiento<>();
-    Busqueda<Habitacion> busqueda = new Busqueda<>();
+    private Busqueda<Habitacion> busqueda = new Busqueda<>();
 
 
     public int getCantidadHabitaciones() {
         return listaHabitaciones.getTamanio();
     }
 
-    public void agregarHabitacion(int numero, int piso, int cantidadCamas, double precioDia) {
-        Habitacion habitacion = new Habitacion(numero, piso, cantidadCamas, precioDia);
+    public void agregarHabitacion(int piso, int numero, int cantidadCamas, double precioDia) {
+        Habitacion habitacion = new Habitacion(piso, numero, cantidadCamas, precioDia);
         habitacion.setId(id);
         id++;
         listaHabitaciones.insertarOrdenado(habitacion, new Habitacion.ComparadorPorPiso()); // se ingresan ordenados por piso <---

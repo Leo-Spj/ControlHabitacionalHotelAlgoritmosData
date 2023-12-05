@@ -124,4 +124,26 @@ public class ListaDoblePilaCola<T> {
         return null;
     }
 
+    public void eliminarPorIndice(int indice) {
+        if (indice >= 0 && indice < this.tamanio) {
+            if (indice == 0) {
+                this.primero = this.primero.getDerecho_siguiente();
+                this.primero.setIzquierdo_anterior(null);
+            } else if (indice == this.tamanio - 1) {
+                this.ultimo = this.ultimo.getIzquierdo_anterior();
+                this.ultimo.setDerecho_siguiente(null);
+            } else {
+                Nodo<T> aux = this.primero;
+                int contador = 0;
+                while (contador < indice) {
+                    aux = aux.getDerecho_siguiente();
+                    contador++;
+                }
+                aux.getIzquierdo_anterior().setDerecho_siguiente(aux.getDerecho_siguiente());
+                aux.getDerecho_siguiente().setIzquierdo_anterior(aux.getIzquierdo_anterior());
+            }
+            this.tamanio--;
+        }
+    }
+
 }

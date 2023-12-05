@@ -11,9 +11,9 @@ public class Habitacion {
     private double precioDia;
     private String estado; // estado(disponible, ocupada, disponible-limpieza , en ocupada-limpieza)
 
-    public Habitacion(int numero, int piso, int cantidadCamas, double precioDia) {
-        this.numero = numero;
+    public Habitacion( int piso, int numero, int cantidadCamas, double precioDia) {
         this.piso = piso;
+        this.numero = numero;
         this.cantidadCamas = cantidadCamas;
         this.precioDia = precioDia;
         this.estado = "Disponible";
@@ -71,8 +71,8 @@ public class Habitacion {
     public String toString() {
         return "Habitacion{" +
                 "id=" + id +
-                ", numero=" + numero +
                 ", piso=" + piso +
+                ", numero=" + numero +
                 ", cantidadCamas=" + cantidadCamas +
                 ", precioDia=" + precioDia +
                 ", estado='" + estado + '\'' +

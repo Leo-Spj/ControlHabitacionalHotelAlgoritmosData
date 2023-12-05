@@ -16,8 +16,8 @@ public class HotelControl {
         this.hotel = new Hotel(nombre, distrito, direccion, telefono);
     }
 
-    public void agregarHabitacion(int numero, int piso, int cantidadCamas, double precioDia) {
-        hotel.getHabitaciones().agregarHabitacion(numero, piso, cantidadCamas, precioDia);
+    public void agregarHabitacion(int piso, int numero, int cantidadCamas, double precioDia) {
+        hotel.getHabitaciones().agregarHabitacion(piso, numero, cantidadCamas, precioDia);
     }
 
     // rudimentario, no usar:
