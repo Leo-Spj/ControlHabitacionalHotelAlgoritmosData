@@ -1,5 +1,7 @@
 package algoritmos;
 
+import java.util.Comparator;
+
 public class ListaDoblePilaCola<T> {
 
     private Nodo<T> primero;
@@ -81,6 +83,34 @@ public class ListaDoblePilaCola<T> {
         }
     }
 
+    public void insertarOrdenado(T dato, Comparator<T> criterio) {
+        Nodo<T> nuevo = new Nodo<T>(dato);
+        if (estaVacia()) {
+            this.primero = nuevo;
+            this.ultimo = nuevo;
+        } else {
+            Nodo<T> aux = this.primero;
+            while (aux != null && criterio.compare(dato, aux.getDato()) > 0) {
+                aux = aux.getDerecho_siguiente();
+            }
+            if (aux == null) {
+                nuevo.setIzquierdo_anterior(this.ultimo);
+                this.ultimo.setDerecho_siguiente(nuevo);
+                this.ultimo = nuevo;
+            } else if (aux == this.primero) {
+                nuevo.setDerecho_siguiente(this.primero);
+                this.primero.setIzquierdo_anterior(nuevo);
+                this.primero = nuevo;
+            } else {
+                nuevo.setDerecho_siguiente(aux);
+                nuevo.setIzquierdo_anterior(aux.getIzquierdo_anterior());
+                aux.getIzquierdo_anterior().setDerecho_siguiente(nuevo);
+                aux.setIzquierdo_anterior(nuevo);
+            }
+        }
+        this.tamanio++;
+    }
+
     public T obtenerIndice(int indice) {
         if (indice >= 0 && indice < this.tamanio) {
             Nodo<T> aux = this.primero;
@@ -94,21 +124,4 @@ public class ListaDoblePilaCola<T> {
         return null;
     }
 
-    public void intercambiar(int i, int minimo) {
-        Nodo<T> aux = this.primero;
-        Nodo<T> aux2 = this.primero;
-        int contador = 0;
-        while (contador < i) {
-            aux = aux.getDerecho_siguiente();
-            contador++;
-        }
-        contador = 0;
-        while (contador < minimo) {
-            aux2 = aux2.getDerecho_siguiente();
-            contador++;
-        }
-        T dato = aux.getDato();
-        aux.setDato(aux2.getDato());
-        aux2.setDato(dato);
-    }
 }

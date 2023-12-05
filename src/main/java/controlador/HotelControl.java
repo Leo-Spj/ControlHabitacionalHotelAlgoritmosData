@@ -20,6 +20,7 @@ public class HotelControl {
         hotel.getHabitaciones().agregarHabitacion(numero, piso, cantidadCamas, precioDia);
     }
 
+    // rudimentario, no usar:
     public void cambiarEstado(int id, String estado) {
         for (int i = 0; i < hotel.getHabitaciones().getListaHabitaciones().getTamanio(); i++) {
             if (hotel.getHabitaciones().getListaHabitaciones().obtenerIndice(i).getId() == id) {
@@ -29,7 +30,7 @@ public class HotelControl {
         }
     }
 
-    public ListaDoblePilaCola<Habitacion> imprimirListaEnlazada() { // Esta imprime tal cual como se ingreso, sin ordenar
+    public ListaDoblePilaCola<Habitacion> primerNododeListaEnlazada() { // Esta imprime tal cual como se ingreso, sin ordenar
         return hotel.getHabitaciones().getListaHabitaciones();
     }
 
@@ -41,6 +42,13 @@ public class HotelControl {
         return hotel.getHabitaciones().getHabitacionesOrdenadasPorEstado();
     }
 
+    public void atenderHabitacionPorCola(){
+        hotel.getHabitaciones().atenderHabitacionPorCola();
+    }
+
+    public void atenderHabitacionPorPila() {
+        hotel.getHabitaciones().atenderHabitacionPorPila();
+    }
 
     @Override
     public String toString() {
@@ -48,9 +56,5 @@ public class HotelControl {
                 "hotel=" + hotel.toString() +
                 '}';
     }
-
-
-
-
 
 }

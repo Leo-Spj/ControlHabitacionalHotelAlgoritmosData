@@ -1,6 +1,8 @@
 package vista;
 
+import algoritmos.ListaDoblePilaCola;
 import controlador.HotelControl;
+import modelo.Habitacion;
 
 public class prueba_ABB {
 
@@ -22,23 +24,31 @@ public class prueba_ABB {
         hotel.agregarHabitacion(1, 3, 1, 100);
         hotel.agregarHabitacion(2, 3, 3, 150);
 
-        // cambiar estado
+
+        // Cambio estado, no usar de esta manera, es solo para la prueba
         hotel.cambiarEstado(1, "Ocupada");
         hotel.cambiarEstado(2, "Ocupada");
         hotel.cambiarEstado(8, "Ocupada");
 
-
-
-        //ListaDoblePilaCola<Habitacion> listaHabitaciones = hotel.imprimirArbolInorden_Piso();
-        for (int i = 0; i < hotel.ordanadoPorPiso().getTamanio(); i++) {
-            System.out.println(hotel.ordanadoPorPiso().obtenerIndice(i).getPiso()+"-"+hotel.ordanadoPorPiso().obtenerIndice(i).getNumero());
-            //System.out.println(hotel.ordanadoPorPiso().toString());
+        System.out.println("Las habitaciones se ingresan ordenadamente por piso (por defecto):");
+        ListaDoblePilaCola<Habitacion> habitaciones = hotel.primerNododeListaEnlazada();
+        for (int i = 0; i < habitaciones.getTamanio(); i++) {
+            System.out.println(habitaciones.obtenerIndice(i).getPiso()+"-"+habitaciones.obtenerIndice(i).getNumero() + " " + habitaciones.obtenerIndice(i).getEstado());
         }
 
-        //ordanadoPorEstado
-        System.out.println("Ordenado por estado:");
-        for (int i = 0; i < hotel.ordanadoPorEstado().getTamanio(); i++) {
-            System.out.println(hotel.ordanadoPorEstado().obtenerIndice(i).getEstado());
+        // Por el metodo de atender por Cola
+        hotel.atenderHabitacionPorCola();
+        hotel.atenderHabitacionPorCola();
+        // Por el metodo de atender por Pila
+        hotel.atenderHabitacionPorPila();
+        hotel.atenderHabitacionPorPila();
+
+
+        // Reordeno por Estado
+        System.out.println("\nOrdenado por estado:");
+        ListaDoblePilaCola<Habitacion> habitacionesPorEstado = hotel.ordanadoPorEstado();
+        for (int i = 0; i < habitacionesPorEstado.getTamanio(); i++) {
+            System.out.println(habitacionesPorEstado.obtenerIndice(i).getPiso()+"-"+habitacionesPorEstado.obtenerIndice(i).getNumero() + " " + habitacionesPorEstado.obtenerIndice(i).getEstado());
         }
 
     }

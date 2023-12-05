@@ -1,28 +1,58 @@
 package algoritmos;
 
+import java.util.Comparator;
+
 public class Busqueda <T> {
 
-    public int secuencial(ListaDoblePilaCola<T> lista, T dato) {
+    public int secuencial(ListaDoblePilaCola<T> lista, T dato, Comparator<T> criterio) {
         for (int i = 0; i < lista.getTamanio(); i++) {
-            if (lista.obtenerIndice(i).equals(dato)) {
+            if (criterio.compare(lista.obtenerIndice(i), dato) == 0) {
                 return i;
             }
         }
         return -1;
     }
 
-    public int binaria(ListaDoblePilaCola<T> lista, T dato) {
+    public int secuencialReversa(ListaDoblePilaCola<T> lista, T dato, Comparator<T> criterio) {
+        for (int i = lista.getTamanio() - 1; i >= 0; i--) {
+            if (criterio.compare(lista.obtenerIndice(i), dato) == 0) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int binaria(ListaDoblePilaCola<T> lista, T dato, Comparator<T> criterio) {
         int inicio = 0;
         int fin = lista.getTamanio() - 1;
         int medio;
+
         while (inicio <= fin) {
             medio = (inicio + fin) / 2;
-            if (lista.obtenerIndice(medio).equals(dato)) {
+            if (criterio.compare(lista.obtenerIndice(medio), dato) == 0) {
                 return medio;
-            } else if (lista.obtenerIndice(medio).hashCode() < dato.hashCode()) {
-                inicio = medio + 1;
-            } else {
+            } else if (criterio.compare(lista.obtenerIndice(medio), dato) > 0) {
                 fin = medio - 1;
+            } else {
+                inicio = medio + 1;
+            }
+        }
+        return -1;
+    }
+
+    public int binariaReversa(ListaDoblePilaCola<T> lista, T dato, Comparator<T> criterio) {
+        int inicio = 0;
+        int fin = lista.getTamanio() - 1;
+        int medio;
+
+        while (inicio <= fin) {
+            medio = (inicio + fin) / 2;
+            if (criterio.compare(lista.obtenerIndice(medio), dato) == 0) {
+                return medio;
+            } else if (criterio.compare(lista.obtenerIndice(medio), dato) < 0) {
+                fin = medio - 1;
+            } else {
+                inicio = medio + 1;
             }
         }
         return -1;
