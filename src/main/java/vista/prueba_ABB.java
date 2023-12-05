@@ -56,6 +56,10 @@ public class prueba_ABB {
         int monto = hotel.reporteHabitacionesOcupadas();
         System.out.println(monto);
 
+        System.out.println("\nReporte monto del dia (Habitaciones Disponibles):");
+        int monto2 = hotel.reporteHabitacionesDisponibles();
+        System.out.println(monto2);
+
 
     }
 }

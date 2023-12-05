@@ -77,7 +77,17 @@ public class HabitacionControl {
         int monto = 0;
 
         for (int i = 0; i < listaHabitaciones.getTamanio(); i++ ){
-            if(listaHabitaciones.obtenerIndice(i).getEstado().equals("Ocupada"))
+            if(listaHabitaciones.obtenerIndice(i).getEstado().equals("Ocupada") || listaHabitaciones.obtenerIndice(i).getEstado().equals("Ocupada-limpieza"))
+                monto += listaHabitaciones.obtenerIndice(i).getPrecioDia();
+        }
+        return monto;
+    }
+
+    public int reporteHabitacionesDisponibles(){
+        int monto = 0;
+
+        for (int i = 0; i < listaHabitaciones.getTamanio(); i++ ){
+            if(listaHabitaciones.obtenerIndice(i).getEstado().equals("Disponible") || listaHabitaciones.obtenerIndice(i).getEstado().equals("Disponible-limpieza"))
                 monto += listaHabitaciones.obtenerIndice(i).getPrecioDia();
         }
         return monto;

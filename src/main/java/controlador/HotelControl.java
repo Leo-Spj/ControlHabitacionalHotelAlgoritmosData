@@ -57,6 +57,10 @@ public class HotelControl {
         return hotel.getHabitaciones().reporteHabitacionesOcupadas();
     }
 
+    public int reporteHabitacionesDisponibles(){
+        return hotel.getHabitaciones().reporteHabitacionesDisponibles();
+    }
+
 
     @Override
     public String toString() {
