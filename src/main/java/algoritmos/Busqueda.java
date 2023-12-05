@@ -40,22 +40,4 @@ public class Busqueda <T> {
         return -1;
     }
 
-    public int binariaReversa(ListaDoblePilaCola<T> lista, T dato, Comparator<T> criterio) {
-        int inicio = 0;
-        int fin = lista.getTamanio() - 1;
-        int medio;
-
-        while (inicio <= fin) {
-            medio = (inicio + fin) / 2;
-            if (criterio.compare(lista.obtenerIndice(medio), dato) == 0) {
-                return medio;
-            } else if (criterio.compare(lista.obtenerIndice(medio), dato) < 0) {
-                fin = medio - 1;
-            } else {
-                inicio = medio + 1;
-            }
-        }
-        return -1;
-    }
-
 }
