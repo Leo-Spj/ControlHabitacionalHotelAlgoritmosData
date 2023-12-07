@@ -25,6 +25,12 @@ public class HabitacionControl {
         listaHabitaciones.insertarOrdenado(habitacion, new Habitacion.ComparadorPorPiso()); // se ingresan ordenados por piso <---
     }
 
+    public void actualizarHabitacion(int id, int piso, int numero, int cantidadCamas, double precioDia) {
+        Habitacion habitacion = new Habitacion(piso, numero, cantidadCamas, precioDia);
+        habitacion.setId(id);
+        listaHabitaciones.actualizar(habitacion, new Habitacion.ComparadorPorId());
+    }
+
     public ListaDoblePilaCola<Habitacion> getListaHabitaciones() {
         return listaHabitaciones;
     }

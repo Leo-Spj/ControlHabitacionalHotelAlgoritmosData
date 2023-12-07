@@ -79,6 +79,16 @@ public class Habitacion {
                 '}';
     }
 
+    public static class ComparadorPorId implements Comparator<Habitacion> {
+        @Override
+        public int compare(Habitacion o1, Habitacion o2) {
+            int id1 = o1.getId();
+            int id2 = o2.getId();
+
+            return id1 - id2;
+        }
+    }
+
     public static class ComparadorPorPiso implements Comparator<Habitacion> {
         @Override
         public int compare(Habitacion o1, Habitacion o2) {

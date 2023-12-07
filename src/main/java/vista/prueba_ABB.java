@@ -36,6 +36,14 @@ public class prueba_ABB {
             System.out.println(habitaciones.obtenerIndice(i).getPiso()+"-"+habitaciones.obtenerIndice(i).getNumero() + " " + habitaciones.obtenerIndice(i).getEstado());
         }
 
+        // Actualización de información de las habitaciones.
+        hotel.actualizarHabitacion(1, 7, 1, 1, 200);
+
+        System.out.println("\nLas habitaciones se ingresan ordenadamente por piso (por defecto):");
+        for (int i = 0; i < habitaciones.getTamanio(); i++) {
+            System.out.println(habitaciones.obtenerIndice(i).getPiso()+"-"+habitaciones.obtenerIndice(i).getNumero() + " " + habitaciones.obtenerIndice(i).getEstado());
+        }
+
         // Por el metodo de atender por Cola
         hotel.atenderHabitacionPorCola();
         hotel.atenderHabitacionPorCola();

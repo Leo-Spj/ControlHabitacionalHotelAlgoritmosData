@@ -20,6 +20,11 @@ public class HotelControl {
         hotel.getHabitaciones().agregarHabitacion(piso, numero, cantidadCamas, precioDia);
     }
 
+    public void actualizarHabitacion(int id, int piso, int numero, int cantidadCamas, double precioDia) {
+        hotel.getHabitaciones().actualizarHabitacion(id, piso, numero, cantidadCamas, precioDia);
+        ordanadoPorPiso();
+    }
+
     // rudimentario, no usar:
     public void cambiarEstado(int id, String estado) {
         for (int i = 0; i < hotel.getHabitaciones().getListaHabitaciones().getTamanio(); i++) {

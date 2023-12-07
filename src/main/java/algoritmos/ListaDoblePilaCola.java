@@ -111,6 +111,16 @@ public class ListaDoblePilaCola<T> {
         this.tamanio++;
     }
 
+    public void actualizar(T dato, Comparator<T> criterioBusqueda){
+        Nodo<T> aux = this.primero;
+        while (aux != null && criterioBusqueda.compare(dato, aux.getDato()) != 0) {
+            aux = aux.getDerecho_siguiente();
+        }
+        if (aux != null && criterioBusqueda.compare(dato, aux.getDato()) == 0) {
+            aux.setDato(dato);
+        }
+    }
+
     public T obtenerIndice(int indice) {
         if (indice >= 0 && indice < this.tamanio) {
             Nodo<T> aux = this.primero;
