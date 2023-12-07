@@ -79,6 +79,10 @@ public class Habitacion {
                 '}';
     }
 
+    public boolean comparar(Habitacion habitacion, Comparator<Habitacion> comparador) {
+        return comparador.compare(this, habitacion) == 0;
+    }
+
     public static class ComparadorPorId implements Comparator<Habitacion> {
         @Override
         public int compare(Habitacion o1, Habitacion o2) {
@@ -92,10 +96,12 @@ public class Habitacion {
     public static class ComparadorPorPiso implements Comparator<Habitacion> {
         @Override
         public int compare(Habitacion o1, Habitacion o2) {
-            String pisoYNumero1 = o1.getPiso() + "-" + o1.getNumero();
-            String pisoYNumero2 = o2.getPiso() + "-" + o2.getNumero();
-
-            return pisoYNumero1.compareTo(pisoYNumero2);
+            int pisoCompare = Integer.compare(o1.getPiso(), o2.getPiso());
+            if (pisoCompare != 0) {
+                return pisoCompare;
+            } else {
+                return Integer.compare(o1.getNumero(), o2.getNumero());
+            }
         }
     }
 

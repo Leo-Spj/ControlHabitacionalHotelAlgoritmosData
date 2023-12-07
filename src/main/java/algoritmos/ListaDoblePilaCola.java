@@ -4,6 +4,9 @@ import java.util.Comparator;
 
 public class ListaDoblePilaCola<T> {
 
+    private Ordenamiento<T> ordenamiento = new Ordenamiento<>();
+    private Busqueda<T> busqueda = new Busqueda<>();
+
     private Nodo<T> primero;
     private Nodo<T> ultimo;
     private int tamanio;
@@ -26,6 +29,21 @@ public class ListaDoblePilaCola<T> {
         return this.tamanio;
     }
 
+    public Ordenamiento<T> getOrdenamiento() {
+        return ordenamiento;
+    }
+
+    public void setOrdenamiento(Ordenamiento<T> ordenamiento) {
+        this.ordenamiento = ordenamiento;
+    }
+
+    public Busqueda<T> getBusqueda() {
+        return busqueda;
+    }
+
+    public void setBusqueda(Busqueda<T> busqueda) {
+        this.busqueda = busqueda;
+    }
 
     public boolean estaVacia() {
         return this.primero == null;
@@ -111,7 +129,7 @@ public class ListaDoblePilaCola<T> {
         this.tamanio++;
     }
 
-    public void actualizar(T dato, Comparator<T> criterioBusqueda){
+    public void actualizarHabitacion(T dato, Comparator<T> criterioBusqueda){
         Nodo<T> aux = this.primero;
         while (aux != null && criterioBusqueda.compare(dato, aux.getDato()) != 0) {
             aux = aux.getDerecho_siguiente();
@@ -121,7 +139,7 @@ public class ListaDoblePilaCola<T> {
         }
     }
 
-    public T obtenerIndice(int indice) {
+    public T obtenerPorIndice(int indice) {
         if (indice >= 0 && indice < this.tamanio) {
             Nodo<T> aux = this.primero;
             int contador = 0;

@@ -6,19 +6,19 @@ import modelo.Habitacion;
 
 public class prueba_ABB {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         // creo un hotel y sus respectivas habitaciones, que seran los nodos del arbol
 
         HotelControl hotel = new HotelControl("Hotel", "Lima", "Av. Los Alamos", "123456789");
         hotel.agregarHabitacion(1, 1, 1, 100);
         hotel.agregarHabitacion(1, 2, 3, 150);
-        hotel.agregarHabitacion(3, 3, 2, 120);
-        hotel.agregarHabitacion(3, 4, 1, 100);
-        hotel.agregarHabitacion(2, 3, 2, 120);
-        hotel.agregarHabitacion(2, 4, 1, 100);
-        hotel.agregarHabitacion(1, 3, 2, 120);
-        hotel.agregarHabitacion(1, 4, 1, 100);
+        hotel.agregarHabitacion(3, 4, 2, 120);
+        hotel.agregarHabitacion(3, 3, 1, 100);
+        hotel.agregarHabitacion(2, 4, 2, 120);
+        hotel.agregarHabitacion(2, 3, 1, 100);
+        hotel.agregarHabitacion(1, 4, 2, 120);
+        hotel.agregarHabitacion(1, 3, 1, 100);
         hotel.agregarHabitacion(2, 1, 1, 100);
         hotel.agregarHabitacion(2, 2, 3, 150);
         hotel.agregarHabitacion(3, 1, 1, 100);
@@ -33,15 +33,15 @@ public class prueba_ABB {
         System.out.println("Las habitaciones se ingresan ordenadamente por piso (por defecto):");
         ListaDoblePilaCola<Habitacion> habitaciones = hotel.primerNododeListaEnlazada();
         for (int i = 0; i < habitaciones.getTamanio(); i++) {
-            System.out.println(habitaciones.obtenerIndice(i).getPiso()+"-"+habitaciones.obtenerIndice(i).getNumero() + " " + habitaciones.obtenerIndice(i).getEstado());
+            System.out.println(habitaciones.obtenerPorIndice(i).getPiso()+"-"+habitaciones.obtenerPorIndice(i).getNumero() + " " + habitaciones.obtenerPorIndice(i).getEstado());
         }
 
         // Actualización de información de las habitaciones.
-        hotel.actualizarHabitacion(1, 7, 1, 1, 200);
+        hotel.actualizarHabitacion(1 , 1, 1, 1, 200);
 
-        System.out.println("\nLas habitaciones se ingresan ordenadamente por piso (por defecto):");
+        System.out.println("\nRevisando que se haya actualizado la habitacion:");
         for (int i = 0; i < habitaciones.getTamanio(); i++) {
-            System.out.println(habitaciones.obtenerIndice(i).getPiso()+"-"+habitaciones.obtenerIndice(i).getNumero() + " " + habitaciones.obtenerIndice(i).getEstado());
+            System.out.println(habitaciones.obtenerPorIndice(i).getPiso()+"-"+habitaciones.obtenerPorIndice(i).getNumero() + " " + habitaciones.obtenerPorIndice(i).getEstado());
         }
 
         // Por el metodo de atender por Cola
@@ -56,7 +56,7 @@ public class prueba_ABB {
         System.out.println("\nOrdenado por estado:");
         ListaDoblePilaCola<Habitacion> habitacionesPorEstado = hotel.ordanadoPorEstado();
         for (int i = 0; i < habitacionesPorEstado.getTamanio(); i++) {
-            System.out.println(habitacionesPorEstado.obtenerIndice(i).getPiso()+"-"+habitacionesPorEstado.obtenerIndice(i).getNumero() + " " + habitacionesPorEstado.obtenerIndice(i).getEstado());
+            System.out.println(habitacionesPorEstado.obtenerPorIndice(i).getPiso()+"-"+habitacionesPorEstado.obtenerPorIndice(i).getNumero() + " " + habitacionesPorEstado.obtenerPorIndice(i).getEstado());
         }
 
 

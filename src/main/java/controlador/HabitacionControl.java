@@ -1,7 +1,5 @@
 package controlador;
 
-import algoritmos.Busqueda;
-import algoritmos.Ordenamiento;
 import modelo.Habitacion;
 import algoritmos.ListaDoblePilaCola;
 
@@ -10,8 +8,6 @@ public class HabitacionControl {
     private int id = 1;
 
     private ListaDoblePilaCola<Habitacion> listaHabitaciones = new ListaDoblePilaCola<>();
-    private Ordenamiento<Habitacion> ordenamiento = new Ordenamiento<>();
-    private Busqueda<Habitacion> busqueda = new Busqueda<>();
 
 
     public int getCantidadHabitaciones() {
@@ -25,10 +21,25 @@ public class HabitacionControl {
         listaHabitaciones.insertarOrdenado(habitacion, new Habitacion.ComparadorPorPiso()); // se ingresan ordenados por piso <---
     }
 
-    public void actualizarHabitacion(int id, int piso, int numero, int cantidadCamas, double precioDia) {
+    public void actualizarHabitacion(int id, int piso, int numero, int cantidadCamas, double precioDia) throws Exception {
         Habitacion habitacion = new Habitacion(piso, numero, cantidadCamas, precioDia);
         habitacion.setId(id);
-        listaHabitaciones.actualizar(habitacion, new Habitacion.ComparadorPorId());
+
+        int indice = listaHabitaciones.getBusqueda().secuencial(listaHabitaciones, habitacion, new Habitacion.ComparadorPorId());
+        Habitacion habitacionEncontrada = listaHabitaciones.obtenerPorIndice(indice);
+
+        //si hay hay una habitacion con el mismo piso y puerta lazan una excepcion, a no ser que sea la misma habitacion
+        if (indice != -1){
+            for (int i = 0; i < listaHabitaciones.getTamanio(); i++) {
+                if (listaHabitaciones.obtenerPorIndice(i).getPiso() == piso
+                        && listaHabitaciones.obtenerPorIndice(i).getNumero() == numero
+                        && listaHabitaciones.obtenerPorIndice(i).getId() != id) {
+                    throw new Exception("Ya existe una habitacion con el mismo piso y numero");
+                }
+            }
+            // si no hay una habitacion con el mismo piso y puerta, actualiza la habitacion
+            listaHabitaciones.actualizarHabitacion(habitacion, new Habitacion.ComparadorPorId());
+        }
     }
 
     public ListaDoblePilaCola<Habitacion> getListaHabitaciones() {
@@ -36,11 +47,11 @@ public class HabitacionControl {
     }
 
     public ListaDoblePilaCola<Habitacion> getHabitacionesOrdenadasPorPiso() {
-        return ordenamiento.porInsercion(listaHabitaciones, new Habitacion.ComparadorPorPiso());
+        return listaHabitaciones.getOrdenamiento().porInsercion(listaHabitaciones, new Habitacion.ComparadorPorPiso());
     }
 
     public ListaDoblePilaCola<Habitacion> getHabitacionesOrdenadasPorEstado() {
-        return ordenamiento.deBurbuja(listaHabitaciones, new Habitacion.ComparadorPorEstado());
+        return listaHabitaciones.getOrdenamiento().deBurbuja(listaHabitaciones, new Habitacion.ComparadorPorEstado());
     }
 
 
@@ -53,29 +64,29 @@ public class HabitacionControl {
     // cuando se antiende una habitacion por cola la primera habitacion que esté disponible es la que se atiende y cambia su estado a ocupada
     public void atenderHabitacionPorCola(){
         // ordenar las habitaciones por piso
-        ListaDoblePilaCola<Habitacion> habitacionesOrdenadasPorPiso = ordenamiento.porInsercion(listaHabitaciones, new Habitacion.ComparadorPorPiso());
+        ListaDoblePilaCola<Habitacion> habitacionesOrdenadasPorPiso = listaHabitaciones.getOrdenamiento().porInsercion(listaHabitaciones, new Habitacion.ComparadorPorPiso());
 
         // creo esta habitacion ficticia para usar el metodo de busqueda
         Habitacion habitacion = new Habitacion(0,0,0,0);
         habitacion.setEstado("Disponible");
 
         // usando el metodo de busqueda
-        int indice = busqueda.secuencial(habitacionesOrdenadasPorPiso, habitacion, new Habitacion.ComparadorPorEstado());
+        int indice = listaHabitaciones.getBusqueda().secuencial(habitacionesOrdenadasPorPiso, habitacion, new Habitacion.ComparadorPorEstado());
         if (indice != -1) {
-            habitacionesOrdenadasPorPiso.obtenerIndice(indice).setEstado("Ocupada");
+            habitacionesOrdenadasPorPiso.obtenerPorIndice(indice).setEstado("Ocupada");
         }
     }
 
     public void atenderHabitacionPorPila(){
-        ListaDoblePilaCola<Habitacion> habitacionesOrdenadasPorPiso = ordenamiento.porInsercion(listaHabitaciones, new Habitacion.ComparadorPorPiso());
+        ListaDoblePilaCola<Habitacion> habitacionesOrdenadasPorPiso = listaHabitaciones.getOrdenamiento().porInsercion(listaHabitaciones, new Habitacion.ComparadorPorPiso());
 
         Habitacion habitacion = new Habitacion(0,0,0,0);
         habitacion.setEstado("Disponible");
 
         // uso la busqueda en reversa
-        int indice = busqueda.secuencialReversa(habitacionesOrdenadasPorPiso, habitacion, new Habitacion.ComparadorPorEstado());
+        int indice = listaHabitaciones.getBusqueda().secuencialReversa(habitacionesOrdenadasPorPiso, habitacion, new Habitacion.ComparadorPorEstado());
         if (indice != -1) {
-            habitacionesOrdenadasPorPiso.obtenerIndice(indice).setEstado("Ocupada");
+            habitacionesOrdenadasPorPiso.obtenerPorIndice(indice).setEstado("Ocupada");
         }
     }
 
@@ -83,8 +94,8 @@ public class HabitacionControl {
         int monto = 0;
 
         for (int i = 0; i < listaHabitaciones.getTamanio(); i++ ){
-            if(listaHabitaciones.obtenerIndice(i).getEstado().equals("Ocupada") || listaHabitaciones.obtenerIndice(i).getEstado().equals("Ocupada-limpieza"))
-                monto += listaHabitaciones.obtenerIndice(i).getPrecioDia();
+            if(listaHabitaciones.obtenerPorIndice(i).getEstado().equals("Ocupada") || listaHabitaciones.obtenerPorIndice(i).getEstado().equals("Ocupada-limpieza"))
+                monto += listaHabitaciones.obtenerPorIndice(i).getPrecioDia();
         }
         return monto;
     }
@@ -93,8 +104,8 @@ public class HabitacionControl {
         int monto = 0;
 
         for (int i = 0; i < listaHabitaciones.getTamanio(); i++ ){
-            if(listaHabitaciones.obtenerIndice(i).getEstado().equals("Disponible") || listaHabitaciones.obtenerIndice(i).getEstado().equals("Disponible-limpieza"))
-                monto += listaHabitaciones.obtenerIndice(i).getPrecioDia();
+            if(listaHabitaciones.obtenerPorIndice(i).getEstado().equals("Disponible") || listaHabitaciones.obtenerPorIndice(i).getEstado().equals("Disponible-limpieza"))
+                monto += listaHabitaciones.obtenerPorIndice(i).getPrecioDia();
         }
         return monto;
     }

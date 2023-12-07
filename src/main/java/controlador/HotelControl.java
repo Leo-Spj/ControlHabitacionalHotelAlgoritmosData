@@ -20,7 +20,7 @@ public class HotelControl {
         hotel.getHabitaciones().agregarHabitacion(piso, numero, cantidadCamas, precioDia);
     }
 
-    public void actualizarHabitacion(int id, int piso, int numero, int cantidadCamas, double precioDia) {
+    public void actualizarHabitacion(int id, int piso, int numero, int cantidadCamas, double precioDia) throws Exception {
         hotel.getHabitaciones().actualizarHabitacion(id, piso, numero, cantidadCamas, precioDia);
         ordanadoPorPiso();
     }
@@ -28,8 +28,8 @@ public class HotelControl {
     // rudimentario, no usar:
     public void cambiarEstado(int id, String estado) {
         for (int i = 0; i < hotel.getHabitaciones().getListaHabitaciones().getTamanio(); i++) {
-            if (hotel.getHabitaciones().getListaHabitaciones().obtenerIndice(i).getId() == id) {
-                hotel.getHabitaciones().getListaHabitaciones().obtenerIndice(i).setEstado(estado);
+            if (hotel.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).getId() == id) {
+                hotel.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).setEstado(estado);
                 break;
             }
         }
