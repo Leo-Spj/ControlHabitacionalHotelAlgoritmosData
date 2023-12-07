@@ -27,6 +27,7 @@ public class HabitacionControl {
 
         int indice = listaHabitaciones.getBusqueda().secuencial(listaHabitaciones, habitacion, new Habitacion.ComparadorPorId());
         Habitacion habitacionEncontrada = listaHabitaciones.obtenerPorIndice(indice);
+        habitacion.setEstado(habitacionEncontrada.getEstado());
 
         //si hay hay una habitacion con el mismo piso y puerta lazan una excepcion, a no ser que sea la misma habitacion
         if (indice != -1){

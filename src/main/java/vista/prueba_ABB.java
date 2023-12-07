@@ -28,7 +28,7 @@ public class prueba_ABB {
         // Cambio estado, no usar de esta manera, es solo para la prueba
         hotel.cambiarEstado(1, "Ocupada");
         hotel.cambiarEstado(2, "Ocupada");
-        hotel.cambiarEstado(8, "Ocupada");
+        hotel.cambiarEstado(7, "Ocupada");
 
         System.out.println("Las habitaciones se ingresan ordenadamente por piso (por defecto):");
         ListaDoblePilaCola<Habitacion> habitaciones = hotel.primerNododeListaEnlazada();
@@ -37,7 +37,7 @@ public class prueba_ABB {
         }
 
         // Actualización de información de las habitaciones.
-        hotel.actualizarHabitacion(1 , 1, 1, 1, 200);
+        hotel.actualizarHabitacion(1 , 1, 1, 2, 110);
 
         System.out.println("\nRevisando que se haya actualizado la habitacion:");
         for (int i = 0; i < habitaciones.getTamanio(); i++) {
