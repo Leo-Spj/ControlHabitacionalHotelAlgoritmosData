@@ -11,15 +11,21 @@ public class HotelControl {
 
     private Hotel hotelBuscar = new Hotel(); // hotel con datos falsos para poder buscarlo en la lista de hoteles mediante Comparator
 
+
+    public ListaDoblePilaCola<Hotel> getListaHoteles() {
+        return listaHoteles;
+    }
     public int getCantidadHoteles() {
         return this.listaHoteles.getTamanio();
     }
 
-    public void agregarHotel(String nombre, String distrito, String direccion, String telefono) {
+    public int agregarHotel(String nombre, String distrito, String direccion, String telefono) {
         Hotel nuevoHotel = new Hotel(nombre, distrito, direccion, telefono);
         nuevoHotel.setId(id);
         id++;
         this.listaHoteles.insertarOrdenado(nuevoHotel, new Hotel.ComparadorPorNombre());
+
+        return nuevoHotel.getId();
     }
 
     public Hotel hotelEncontrado(int idHotel){
