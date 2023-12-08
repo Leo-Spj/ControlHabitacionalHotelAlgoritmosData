@@ -12,7 +12,6 @@ public class prueba_ABB {
         HotelControl hotelControl = new HotelControl();
 
         hotelControl.agregarHotel("Las Fores", "Pueblo Libre", "Calle las flores 420", "999666999");
-        //System.out.println(hotelControl.getCantidadHoteles());
 
         hotelControl.agregarHabitacion(1, 1, 1, 1, 100);
         hotelControl.agregarHabitacion(1, 1, 2, 3, 150);
@@ -40,7 +39,7 @@ public class prueba_ABB {
         }
 
         // Actualización de información de las habitaciones.
-        hotelControl.actualizarHabitacion(1, 1 , 1, 1, 2, 110);
+        hotelControl.actualizarHabitacion(1, 2 , 1, 7, 2, 110);
 
         System.out.println("\nRevisando que se haya actualizado la habitacion:");
         for (int i = 0; i < habitaciones.getTamanio(); i++) {

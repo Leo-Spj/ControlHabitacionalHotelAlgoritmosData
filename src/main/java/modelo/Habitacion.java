@@ -94,16 +94,20 @@ public class Habitacion {
     }
 
     public static class ComparadorPorPiso implements Comparator<Habitacion> {
-        @Override
-        public int compare(Habitacion o1, Habitacion o2) {
-            int pisoCompare = Integer.compare(o1.getPiso(), o2.getPiso());
-            if (pisoCompare != 0) {
-                return pisoCompare;
-            } else {
-                return Integer.compare(o1.getNumero(), o2.getNumero());
-            }
+    @Override
+    public int compare(Habitacion o1, Habitacion o2) {
+        int piso1 = o1.getPiso();
+        int piso2 = o2.getPiso();
+        int numero1 = o1.getNumero();
+        int numero2 = o2.getNumero();
+
+        if (piso1 == piso2) {
+            return numero1 - numero2;
+        } else {
+            return piso1 - piso2;
         }
     }
+}
 
     public static class ComparadorPorEstado implements Comparator<Habitacion> {
         @Override

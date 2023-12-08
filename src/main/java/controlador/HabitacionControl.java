@@ -40,6 +40,10 @@ public class HabitacionControl {
             }
             // si no hay una habitacion con el mismo piso y puerta, actualiza la habitacion
             listaHabitaciones.actualizarHabitacion(habitacion, new Habitacion.ComparadorPorId());
+
+            //ordenando la lista por piso y numero
+            setListaHabitaciones(getHabitacionesOrdenadasPorPiso());
+
         }
     }
 
@@ -52,6 +56,9 @@ public class HabitacionControl {
 
     public ListaDoblePilaCola<Habitacion> getListaHabitaciones() {
         return listaHabitaciones;
+    }
+    public void setListaHabitaciones(ListaDoblePilaCola<Habitacion> listaHabitaciones) {
+        this.listaHabitaciones = listaHabitaciones;
     }
 
     public ListaDoblePilaCola<Habitacion> getHabitacionesOrdenadasPorPiso() {
