@@ -4,7 +4,7 @@ import algoritmos.ListaDoblePilaCola;
 import controlador.HotelControl;
 import modelo.Habitacion;
 
-public class prueba_ABB {
+public class pruebas {
 
     public static void main(String[] args) throws Exception {
 

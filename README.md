@@ -37,6 +37,3 @@ En un arreglo de objetos, se deben registrar los siguientes detalles de cada hab
 5. **Independencia de Clases del Entorno:**
    - [x] Las clases deben ser independientes del entorno.
 
-## Ejecución de la Aplicación
-
-
