@@ -1003,13 +1003,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             } else {
 
                 Hotel hotel = obtenerHotelPorIdNombre(id_nombre);
+                String nombreAnterior = hotel.getNombre();
 
                 hotel.setNombre(nombre);
                 hotel.setDistrito(distrito);
                 hotel.setDireccion(direccion);
                 hotel.setTelefono(telefono);
 
-                actualizandoComboBox();
+                if(!nombreAnterior.equals(nombre)){
+                    actualizandoComboBox();
+                }
 
                 JOptionPane.showMessageDialog(null, "Se ha actualizado la sucursal");
             }
@@ -1017,7 +1020,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btn_actualizarSucursalActionPerformed
     private void btn_crearHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crearHabActionPerformed
-        // TODO add your handling code here:
+
+        String nombreSucursal = cbx_gestion_selectSucursal.getSelectedItem().toString();
+        Hotel hotel = obtenerHotelPorIdNombre(nombreSucursal);
+
+        int piso = (int) spnr_crearHab_piso.getValue();
+        int puerta = (int) spnr_crearHab_puerta.getValue();
+        int camas = (int) spnr_crearHab_camas.getValue();
+        double precio = Double.parseDouble(txf_crearHab_precio.getText());
+        
+        if (piso == 0 || puerta == 0 || camas == 0 || precio < 0) {
+            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+        } else {
+            hotelControl.agregarHabitacion(hotel.getId(), piso, puerta, camas, precio);
+            cargarTabla(hotel.getId());
+            spnr_crearHab_puerta.setValue(puerta + 1);
+            JOptionPane.showMessageDialog(null, "Se ha creado la habitación");
+        }
     }//GEN-LAST:event_btn_crearHabActionPerformed
 
     private void cbx_selectSucursalItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbx_selectSucursalItemStateChanged
