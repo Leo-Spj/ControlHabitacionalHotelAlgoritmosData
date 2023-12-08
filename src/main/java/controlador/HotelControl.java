@@ -6,72 +6,80 @@ import modelo.Hotel;
 
 public class HotelControl {
 
-    private Hotel hotel;
+    private int id = 1;
+    private ListaDoblePilaCola<Hotel> listaHoteles = new ListaDoblePilaCola<>();
 
-    public Hotel getHotel() {
-        return hotel;
+    Hotel hotelBuscar = new Hotel(); // hotel con datos falsos para poder buscarlo en la lista de hoteles mediante Comparator
+
+    public int getCantidadHoteles() {
+        return this.listaHoteles.getTamanio();
     }
 
-    public HotelControl(String nombre, String distrito, String direccion, String telefono) {
-        this.hotel = new Hotel(nombre, distrito, direccion, telefono);
+    public void agregarHotel(String nombre, String distrito, String direccion, String telefono) {
+        Hotel nuevoHotel = new Hotel(nombre, distrito, direccion, telefono);
+        nuevoHotel.setId(id);
+        id++;
+        this.listaHoteles.insertarOrdenado(nuevoHotel, new Hotel.ComparadorPorNombre());
     }
 
-    public void agregarHabitacion(int piso, int numero, int cantidadCamas, double precioDia) {
-        hotel.getHabitaciones().agregarHabitacion(piso, numero, cantidadCamas, precioDia);
+    public Hotel hotelEncontrado(int idHotel){
+        hotelBuscar.setId(idHotel);
+
+        int indice = listaHoteles.getBusqueda().secuencial(listaHoteles, hotelBuscar, new Hotel.ComparadorPorId());
+        return listaHoteles.obtenerPorIndice(indice);
     }
 
-    public void actualizarHabitacion(int id, int piso, int numero, int cantidadCamas, double precioDia) throws Exception {
-        hotel.getHabitaciones().actualizarHabitacion(id, piso, numero, cantidadCamas, precioDia);
-        ordanadoPorPiso();
+    public void agregarHabitacion(int idHotel, int piso, int numero, int cantidadCamas, double precioDia) {
+        Hotel hotelEncontrado = hotelEncontrado(idHotel);
+        hotelEncontrado.getHabitaciones().agregarHabitacion(piso, numero, cantidadCamas, precioDia);
     }
 
-    // rudimentario, no usar:
-    public void cambiarEstado(int id, String estado) {
-        for (int i = 0; i < hotel.getHabitaciones().getListaHabitaciones().getTamanio(); i++) {
-            if (hotel.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).getId() == id) {
-                hotel.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).setEstado(estado);
-                break;
-            }
-        }
+    public void actualizarHabitacion(int idHotel, int id, int piso, int numero, int cantidadCamas, double precioDia) throws Exception {
+        Hotel hotelEncontrado = hotelEncontrado(idHotel);
+        hotelEncontrado.getHabitaciones().actualizarHabitacion(id, piso, numero, cantidadCamas, precioDia);
     }
 
-    public ListaDoblePilaCola<Habitacion> primerNododeListaEnlazada() { // Esta imprime tal cual como se ingreso, sin ordenar
-        return hotel.getHabitaciones().getListaHabitaciones();
+    //cambiarEstado
+    public void cambiarEstado(int idHotel, int id, String estado) {
+        Hotel hotelEncontrado = hotelEncontrado(idHotel);
+        hotelEncontrado.getHabitaciones().buscarHabitacionporId(id).setEstado(estado);
     }
 
-    public ListaDoblePilaCola<Habitacion> ordanadoPorPiso() {
-        return hotel.getHabitaciones().getHabitacionesOrdenadasPorPiso();
+    public ListaDoblePilaCola<Habitacion> primerNododeListaEnlazada(int idHotel) { // Esta imprime tal cual como se ingreso, sin ordenar
+        Hotel hotelEncontrado = hotelEncontrado(idHotel);
+        return hotelEncontrado.getHabitaciones().getListaHabitaciones();
     }
 
-    public ListaDoblePilaCola<Habitacion> ordanadoPorEstado() {
-        return hotel.getHabitaciones().getHabitacionesOrdenadasPorEstado();
+    public ListaDoblePilaCola<Habitacion> ordanadoPorPiso(int idHotel) {
+        Hotel hotelEncontrado = hotelEncontrado(idHotel);
+        return hotelEncontrado.getHabitaciones().getHabitacionesOrdenadasPorPiso();
     }
 
-    public void atenderHabitacionPorCola(){
-        hotel.getHabitaciones().atenderHabitacionPorCola();
+    public ListaDoblePilaCola<Habitacion> ordanadoPorEstado(int idHotel) {
+        Hotel hotelEncontrado = hotelEncontrado(idHotel);
+        return hotelEncontrado.getHabitaciones().getHabitacionesOrdenadasPorEstado();
     }
 
-    public void atenderHabitacionPorPila() {
-        hotel.getHabitaciones().atenderHabitacionPorPila();
+    public void atenderHabitacionPorCola(int idHotel){
+        Hotel hotelEncontrado = hotelEncontrado(idHotel);
+        hotelEncontrado.getHabitaciones().atenderHabitacionPorCola();
     }
 
-
-
-    // Reportes
-    public int reporteHabitacionesOcupadas(){
-        return hotel.getHabitaciones().reporteHabitacionesOcupadas();
-    }
-
-    public int reporteHabitacionesDisponibles(){
-        return hotel.getHabitaciones().reporteHabitacionesDisponibles();
+    public void atenderHabitacionPorPila(int idHotel) {
+        Hotel hotelEncontrado = hotelEncontrado(idHotel);
+        hotelEncontrado.getHabitaciones().atenderHabitacionPorPila();
     }
 
 
-    @Override
-    public String toString() {
-        return "HotelControl{" +
-                "hotel=" + hotel.toString() +
-                '}';
+    public int reporteHabitacionesOcupadas(int idHotel){
+        Hotel hotelEncontrado = hotelEncontrado(idHotel);
+        return hotelEncontrado.getHabitaciones().reporteHabitacionesOcupadas();
     }
+
+    public int reporteHabitacionesDisponibles(int idHotel){
+        Hotel hotelEncontrado = hotelEncontrado(idHotel);
+        return hotelEncontrado.getHabitaciones().reporteHabitacionesDisponibles();
+    }
+
 
 }

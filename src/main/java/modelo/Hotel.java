@@ -2,7 +2,11 @@ package modelo;
 
 import controlador.HabitacionControl;
 
+import java.util.Comparator;
+
 public class Hotel {
+
+    private int id;
     private String nombre;
     private String distrito;
     private String direccion;
@@ -14,6 +18,21 @@ public class Hotel {
         this.distrito = distrito;
         this.direccion = direccion;
         this.telefono = telefono;
+    }
+
+    public Hotel() {
+        this.nombre = "";
+        this.distrito = "";
+        this.direccion = "";
+        this.telefono = "";
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -55,6 +74,23 @@ public class Hotel {
     /*public void setHabitaciones(HabitacionControl habitaciones) {
         Habitaciones = habitaciones;
     }*/
+
+    public static class ComparadorPorNombre implements Comparator<Hotel> {
+        @Override
+        public int compare(Hotel o1, Hotel o2) {
+            return o1.getNombre().compareTo(o2.getNombre());
+        }
+    }
+
+    public static class ComparadorPorId implements Comparator<Hotel> {
+        @Override
+        public int compare(Hotel o1, Hotel o2) {
+            int id1 = o1.getId();
+            int id2 = o2.getId();
+
+            return id1 - id2;
+        }
+    }
 
     @Override
     public String toString() {

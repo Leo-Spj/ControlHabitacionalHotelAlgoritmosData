@@ -43,6 +43,13 @@ public class HabitacionControl {
         }
     }
 
+    public Habitacion buscarHabitacionporId(int id) {
+        Habitacion habitacion = new Habitacion(0,0,0,0);
+        habitacion.setId(id);
+        int indice = listaHabitaciones.getBusqueda().secuencial(listaHabitaciones, habitacion, new Habitacion.ComparadorPorId());
+        return listaHabitaciones.obtenerPorIndice(indice);
+    }
+
     public ListaDoblePilaCola<Habitacion> getListaHabitaciones() {
         return listaHabitaciones;
     }
