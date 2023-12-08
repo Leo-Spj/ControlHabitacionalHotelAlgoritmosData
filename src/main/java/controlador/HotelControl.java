@@ -9,7 +9,7 @@ public class HotelControl {
     private int id = 1;
     private ListaDoblePilaCola<Hotel> listaHoteles = new ListaDoblePilaCola<>();
 
-    Hotel hotelBuscar = new Hotel(); // hotel con datos falsos para poder buscarlo en la lista de hoteles mediante Comparator
+    private Hotel hotelBuscar = new Hotel(); // hotel con datos falsos para poder buscarlo en la lista de hoteles mediante Comparator
 
     public int getCantidadHoteles() {
         return this.listaHoteles.getTamanio();
