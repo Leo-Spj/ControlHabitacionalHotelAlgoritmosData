@@ -53,16 +53,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         hotelControl.agregarHabitacion(1, 3, 1, 1, 100);
         hotelControl.agregarHabitacion(1, 3, 2, 3, 150);
 
-        aniadiendoEnComboBoxs(1);
+        actualizandoComboBox();
 
         cargarTabla(1);
     }
 
-    public void aniadiendoEnComboBoxs(int idHotel){
-        Hotel hotelEncontrado = hotelControl.hotelEncontrado(idHotel);
-        //añadiendo en cbx
-        cbx_selectSucursal.addItem(hotelEncontrado.getId()+" - "+hotelEncontrado.getNombre());
-        cbx_gestion_selectSucursal.addItem(hotelEncontrado.getId()+" - "+hotelEncontrado.getNombre());
+
+
+    // por cada hotel se inserta en el combobox
+    public void actualizandoComboBox(){
+
+        cbx_selectSucursal.removeAllItems();
+        cbx_gestion_selectSucursal.removeAllItems();
+
+        for (int i = 0; i < hotelControl.getCantidadHoteles(); i++) {
+            Hotel hotel = hotelControl.getListaHoteles().obtenerPorIndice(i);
+            String nombre = hotel.getId()+" - "+hotel.getNombre();
+            cbx_selectSucursal.addItem(nombre);
+            cbx_gestion_selectSucursal.addItem(nombre);
+        }
     }
 
     public void cargarTabla(int idHotel){
@@ -96,7 +105,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     //obtener hotel por el id_nombre del combobox
     public Hotel obtenerHotelPorIdNombre(String id_nombre) {
-        for (int i = 0; i < hotelControl.getCantidadHoteles(); i++) {
+        for (int i = hotelControl.getCantidadHoteles()-1; i >= 0; i--) {
             Hotel hotel = hotelControl.getListaHoteles().obtenerPorIndice(i);
             if ((hotel.getId() + " - " + hotel.getNombre()).equals(id_nombre)) {
                 return hotel;
@@ -950,7 +959,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
         } else {
             int idHotel = hotelControl.agregarHotel(nombre, distrito, direccion, telefono);
-            aniadiendoEnComboBoxs(idHotel);
+            actualizandoComboBox();
             txf_crearSucursal_nombre.setText("");
             txf_crearSucursal_distrito.setText("");
             txf_crearSucursal_direc.setText("");
@@ -961,54 +970,49 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_crearSucursal_ActionPerformed
 
     private void cbx_gestion_selectSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_gestion_selectSucursalActionPerformed
+        String item = (String) cbx_gestion_selectSucursal.getSelectedItem();
+        if (item != null) {
+            //al seleccionar una sucursal se cargan los datos de la sucursal en los campos de texto para porder actualizar
+            String nombreSucursal = cbx_gestion_selectSucursal.getSelectedItem().toString();
+            Hotel hotel = obtenerHotelPorIdNombre(nombreSucursal);
 
-        //al seleccionar una sucursal se cargan los datos de la sucursal en los campos de texto para porder actualizar
-        String nombreSucursal = cbx_gestion_selectSucursal.getSelectedItem().toString();
-        Hotel hotel = obtenerHotelPorIdNombre(nombreSucursal);
-
-        //si no es nulo
-        if (hotel != null) {
-            txf_actualizarSucursal_nombre.setText(hotel.getNombre());
-            txf_actualizarSucursal_distrito.setText(hotel.getDistrito());
-            txf_actualizarSucursal_direc.setText(hotel.getDireccion());
-            txf_actualizarSucursal_telefono.setText(hotel.getTelefono());
+            //si no es nulo
+            if (hotel != null) {
+                txf_actualizarSucursal_nombre.setText(hotel.getNombre());
+                txf_actualizarSucursal_distrito.setText(hotel.getDistrito());
+                txf_actualizarSucursal_direc.setText(hotel.getDireccion());
+                txf_actualizarSucursal_telefono.setText(hotel.getTelefono());
+            }
         }
 
     }//GEN-LAST:event_cbx_gestion_selectSucursalActionPerformed
 
     private void btn_actualizarSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarSucursalActionPerformed
 
-        String id_nombre = cbx_gestion_selectSucursal.getSelectedItem().toString();
+        String item = (String) cbx_gestion_selectSucursal.getSelectedItem();
+        if (item != null) {
+            String id_nombre = cbx_gestion_selectSucursal.getSelectedItem().toString();
 
-        String nombre = txf_actualizarSucursal_nombre.getText();
-        String distrito = txf_actualizarSucursal_distrito.getText();
-        String direccion = txf_actualizarSucursal_direc.getText();
-        String telefono = txf_actualizarSucursal_telefono.getText();
+            String nombre = txf_actualizarSucursal_nombre.getText();
+            String distrito = txf_actualizarSucursal_distrito.getText();
+            String direccion = txf_actualizarSucursal_direc.getText();
+            String telefono = txf_actualizarSucursal_telefono.getText();
 
-        if (nombre.equals("") || distrito.equals("") || direccion.equals("") || telefono.equals("")) {
-            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
-        } else {
+            if (nombre.equals("") || distrito.equals("") || direccion.equals("") || telefono.equals("")) {
+                JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+            } else {
 
-            Hotel hotel = obtenerHotelPorIdNombre(id_nombre);
-            String nombreAntiguo = hotel.getNombre();
-            // si el nombre es distinto al que ya tenia
-            if (!hotel.getNombre().equals(nombre)) {
-                nombreAntiguo = hotel.getNombre();
-                cbx_gestion_selectSucursal.removeItemAt(cbx_gestion_selectSucursal.getSelectedIndex());
+                Hotel hotel = obtenerHotelPorIdNombre(id_nombre);
+
+                hotel.setNombre(nombre);
+                hotel.setDistrito(distrito);
+                hotel.setDireccion(direccion);
+                hotel.setTelefono(telefono);
+
+                actualizandoComboBox();
+
+                JOptionPane.showMessageDialog(null, "Se ha actualizado la sucursal");
             }
-
-            hotel.setNombre(nombre);
-            hotel.setDistrito(distrito);
-            hotel.setDireccion(direccion);
-            hotel.setTelefono(telefono);
-
-            if(!hotel.getNombre().equals(nombreAntiguo)){
-                //actualizar nombre del combo box
-                aniadiendoEnComboBoxs(hotel.getId());
-            }
-
-
-            JOptionPane.showMessageDialog(null, "Se ha actualizado la sucursal");
         }
 
     }//GEN-LAST:event_btn_actualizarSucursalActionPerformed
