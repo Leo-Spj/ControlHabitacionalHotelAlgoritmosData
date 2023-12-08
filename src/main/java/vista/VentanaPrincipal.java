@@ -32,9 +32,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
 
         datosDePrueba();
-
-        //Prueba de funcionamiento
-        System.out.println("Cantidad de habitaciones de sucursal 1: "+hotelControl.hotelEncontrado(1).getHabitaciones().getCantidadHabitaciones());
     }
 
     public void datosDePrueba(){
@@ -1028,19 +1025,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         int puerta = (int) spnr_crearHab_puerta.getValue();
         int camas = (int) spnr_crearHab_camas.getValue();
         double precio = Double.parseDouble(txf_crearHab_precio.getText());
-        
+
         if (piso == 0 || puerta == 0 || camas == 0 || precio < 0) {
             JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
         } else {
             hotelControl.agregarHabitacion(hotel.getId(), piso, puerta, camas, precio);
             cargarTabla(hotel.getId());
+
             spnr_crearHab_puerta.setValue(puerta + 1);
+            cbx_selectSucursal.setSelectedItem(hotel.getId()+" - "+hotel.getNombre());
             JOptionPane.showMessageDialog(null, "Se ha creado la habitación");
         }
     }//GEN-LAST:event_btn_crearHabActionPerformed
 
     private void cbx_selectSucursalItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbx_selectSucursalItemStateChanged
-        // TODO add your handling code here:
+
+        String item = (String) cbx_selectSucursal.getSelectedItem();
+        if (item != null) {
+            String nombreSucursal = cbx_selectSucursal.getSelectedItem().toString();
+            Hotel hotel = obtenerHotelPorIdNombre(nombreSucursal);
+
+            if (hotel != null && hotel.getHabitaciones().getCantidadHabitaciones()> 0) {
+                cargarTabla(hotel.getId());
+            }
+        }
     }//GEN-LAST:event_cbx_selectSucursalItemStateChanged
 
     private void btn_actualizarHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarHabitacionActionPerformed
