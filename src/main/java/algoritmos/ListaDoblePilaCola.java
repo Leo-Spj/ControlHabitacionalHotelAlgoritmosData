@@ -94,6 +94,26 @@ public class ListaDoblePilaCola<T> {
         }
     }
 
+    public void eliminarPorCriterio(T dato, Comparator<T> criterio) {
+        Nodo<T> aux = this.primero;
+        while (aux != null && criterio.compare(dato, aux.getDato()) != 0) {
+            aux = aux.getDerecho_siguiente();
+        }
+        if (aux != null && criterio.compare(dato, aux.getDato()) == 0) {
+            if (aux == this.primero) {
+                this.primero = this.primero.getDerecho_siguiente();
+                this.primero.setIzquierdo_anterior(null);
+            } else if (aux == this.ultimo) {
+                this.ultimo = this.ultimo.getIzquierdo_anterior();
+                this.ultimo.setDerecho_siguiente(null);
+            } else {
+                aux.getIzquierdo_anterior().setDerecho_siguiente(aux.getDerecho_siguiente());
+                aux.getDerecho_siguiente().setIzquierdo_anterior(aux.getIzquierdo_anterior());
+            }
+            this.tamanio--;
+        }
+    }
+
     public void insertarOrdenado(T dato, Comparator<T> criterio) {
         Nodo<T> nuevo = new Nodo<T>(dato);
         if (estaVacia()) {
