@@ -45,27 +45,6 @@ public class HotelControl {
         hotelEncontrado.getHabitaciones().actualizarHabitacion(id, piso, numero, cantidadCamas, precioDia);
     }
 
-    //cambiarEstado
-    public void cambiarEstado(int idHotel, int id, String estado) {
-        Hotel hotelEncontrado = hotelEncontrado(idHotel);
-        hotelEncontrado.getHabitaciones().buscarHabitacionporId(id).setEstado(estado);
-    }
-
-    public ListaDoblePilaCola<Habitacion> primerNododeListaEnlazada(int idHotel) { // Esta imprime tal cual como se ingreso, sin ordenar
-        Hotel hotelEncontrado = hotelEncontrado(idHotel);
-        return hotelEncontrado.getHabitaciones().getListaHabitaciones();
-    }
-
-    public ListaDoblePilaCola<Habitacion> ordanadoPorPiso(int idHotel) {
-        Hotel hotelEncontrado = hotelEncontrado(idHotel);
-        return hotelEncontrado.getHabitaciones().getHabitacionesOrdenadasPorPiso();
-    }
-
-    public ListaDoblePilaCola<Habitacion> ordanadoPorEstado(int idHotel) {
-        Hotel hotelEncontrado = hotelEncontrado(idHotel);
-        return hotelEncontrado.getHabitaciones().getHabitacionesOrdenadasPorEstado();
-    }
-
     public void atenderHabitacionPorCola(int idHotel){
         Hotel hotelEncontrado = hotelEncontrado(idHotel);
         hotelEncontrado.getHabitaciones().atenderHabitacionPorCola();
@@ -75,7 +54,6 @@ public class HotelControl {
         Hotel hotelEncontrado = hotelEncontrado(idHotel);
         hotelEncontrado.getHabitaciones().atenderHabitacionPorPila();
     }
-
 
     public int reporteHabitacionesOcupadas(int idHotel){
         Hotel hotelEncontrado = hotelEncontrado(idHotel);

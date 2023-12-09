@@ -71,9 +71,6 @@ public class Hotel {
         return Habitaciones;
     }
 
-    /*public void setHabitaciones(HabitacionControl habitaciones) {
-        Habitaciones = habitaciones;
-    }*/
 
     public static class ComparadorPorNombre implements Comparator<Hotel> {
         @Override
