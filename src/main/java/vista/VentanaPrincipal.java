@@ -99,6 +99,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     hotelEncontrado.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).getEstado()
             });
         }
+
+        reporteDelDia(hotelEncontrado.getId());
     }
 
     public void cargarTablaPorPiso(int idHotel){
@@ -157,6 +159,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         return null;
     }
 
+    public void reporteDelDia(int idHotel){
+        double montoOcupadas = hotelControl.reporteHabitacionesOcupadas(idHotel);
+        double montoDisponibles = hotelControl.reporteHabitacionesDisponibles(idHotel);
+        txf_monto_ocupadas.setText(String.valueOf(montoOcupadas));
+        txf_monto_disponibles.setText(String.valueOf(montoDisponibles));
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -171,7 +180,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         cbx_selectSucursal = new javax.swing.JComboBox<>();
-        txf_idSucursal = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txf_idHabitacion = new javax.swing.JTextField();
@@ -260,29 +268,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        txf_idSucursal.setEditable(false);
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txf_idSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addComponent(cbx_selectSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txf_idSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cbx_selectSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(21, Short.MAX_VALUE))
@@ -290,7 +291,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel2.setText("Actualizar Habitación");
+        jLabel2.setText("Actualizar Habitación ID:");
 
         txf_idHabitacion.setEditable(false);
 
@@ -506,7 +507,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel10.setText("Estado:");
 
-        cbx_filtrarPorEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible", "Disponible-limpieza", "Ocupada", "Ocupada-limpieza" }));
+        cbx_filtrarPorEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas", "Disponible", "Disponible-limpieza", "Ocupada", "Ocupada-limpieza" }));
         cbx_filtrarPorEstado.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbx_filtrarPorEstadoItemStateChanged(evt);
@@ -1099,6 +1100,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
             spnr_crearHab_puerta.setValue(puerta + 1);
             cbx_selectSucursal.setSelectedItem(hotel.getId()+" - "+hotel.getNombre());
+            reporteDelDia(hotel.getId());
             JOptionPane.showMessageDialog(null, "Se ha creado la habitación");
         }
     }//GEN-LAST:event_btn_crearHabActionPerformed
@@ -1112,6 +1114,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
             if (hotel != null) {
                 cargarTabla(hotel.getId());
+                reporteDelDia(hotel.getId());
             }
         }
     }//GEN-LAST:event_cbx_selectSucursalItemStateChanged
@@ -1136,6 +1139,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 try {
                     hotelControl.actualizarHabitacion(hotel.getId(), idHabitacion, piso, puerta, camas, precio);
                     cargarTabla(hotel.getId());
+                    reporteDelDia(hotel.getId());
+
                     JOptionPane.showMessageDialog(null, "Se ha actualizado la habitación");
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Ya existe una habitación con ese número de puerta.");
@@ -1152,9 +1157,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             String nombreSucursal = cbx_selectSucursal.getSelectedItem().toString();
             Hotel hotel = obtenerHotelPorIdNombre(nombreSucursal);
 
-            if (hotel != null) {
-                cargarTablaPorPiso(hotel.getId());
-            }
+            cargarTablaPorPiso(hotel.getId());
         }
     }//GEN-LAST:event_btn_ordenarPorPisoActionPerformed
 
@@ -1165,9 +1168,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             String nombreSucursal = cbx_selectSucursal.getSelectedItem().toString();
             Hotel hotel = obtenerHotelPorIdNombre(nombreSucursal);
 
-            if (hotel != null) {
-                cargarTablaPorEstado(hotel.getId());
-            }
+            cargarTablaPorEstado(hotel.getId());
         }
     }//GEN-LAST:event_btn_ordenarPorEstadoActionPerformed
 
@@ -1175,14 +1176,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         String item = (String) cbx_selectSucursal.getSelectedItem();
         if (item != null) {
+
             String nombreSucursal = cbx_selectSucursal.getSelectedItem().toString();
             Hotel hotel = obtenerHotelPorIdNombre(nombreSucursal);
 
-            if (hotel != null) {
+            if (cbx_filtrarPorEstado.getSelectedItem().toString().equals("Todas")) {
+                cargarTabla(hotel.getId());
+            } else {
                 String estado = cbx_filtrarPorEstado.getSelectedItem().toString();
                 cargarTablaPorEstado(hotel.getId(), estado);
             }
+
+            //reporte
+            reporteDelDia(hotel.getId());
         }
+
+
     }//GEN-LAST:event_cbx_filtrarPorEstadoItemStateChanged
 
     private void btn_atenderPorColaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_atenderPorColaActionPerformed
@@ -1192,15 +1201,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             String nombreSucursal = cbx_selectSucursal.getSelectedItem().toString();
             Hotel hotel = obtenerHotelPorIdNombre(nombreSucursal);
 
-            if (hotel != null) {
-                try {
-                    hotelControl.atenderHabitacionPorCola(hotel.getId());
-                    cargarTabla(hotel.getId());
-                    JOptionPane.showMessageDialog(null, "Se ha atendido a la persona");
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "No hay personas en cola");
-                }
+            try {
+                hotelControl.atenderHabitacionPorCola(hotel.getId());
+                cargarTabla(hotel.getId());
+                reporteDelDia(hotel.getId());
+
+                JOptionPane.showMessageDialog(null, "Se ha atendido a la persona");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "No hay personas en cola");
             }
+
         }
     }//GEN-LAST:event_btn_atenderPorColaActionPerformed
 
@@ -1211,15 +1221,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             String nombreSucursal = cbx_selectSucursal.getSelectedItem().toString();
             Hotel hotel = obtenerHotelPorIdNombre(nombreSucursal);
 
-            if (hotel != null) {
-                try {
-                    hotelControl.atenderHabitacionPorPila(hotel.getId());
-                    cargarTabla(hotel.getId());
-                    JOptionPane.showMessageDialog(null, "Se ha atendido a la persona");
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "No hay personas en cola");
-                }
+            try {
+                hotelControl.atenderHabitacionPorPila(hotel.getId());
+                cargarTabla(hotel.getId());
+                reporteDelDia(hotel.getId());
+
+                JOptionPane.showMessageDialog(null, "Se ha atendido a la persona");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "No hay personas en cola");
             }
+
         }
     }//GEN-LAST:event_btn_atenderPorPilaActionPerformed
 
@@ -1287,6 +1298,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
                 hotel.getHabitaciones().getHabitacionesOrdenadasPorPiso();
                 cargarTabla(hotel.getId());
+                reporteDelDia(hotel.getId());
+
             }
         }
     }//GEN-LAST:event_CheckBx_ocupadaActionPerformed
@@ -1318,6 +1331,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
                 hotel.getHabitaciones().getHabitacionesOrdenadasPorPiso();
                 cargarTabla(hotel.getId());
+                reporteDelDia(hotel.getId());
+
             }
         }
     }//GEN-LAST:event_CheckBx_limpiezaActionPerformed
@@ -1437,7 +1452,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txf_crearSucursal_nombre;
     private javax.swing.JTextField txf_crearSucursal_telefono;
     private javax.swing.JTextField txf_idHabitacion;
-    private javax.swing.JTextField txf_idSucursal;
     private javax.swing.JTextField txf_monto_disponibles;
     private javax.swing.JTextField txf_monto_ocupadas;
     // End of variables declaration//GEN-END:variables
