@@ -431,11 +431,17 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="En Limpieza"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CheckBx_limpiezaActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="CheckBx_ocupada">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Ocupada"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CheckBx_ocupadaActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -555,7 +561,12 @@
                 <Component class="javax.swing.JComboBox" name="cbx_filtrarPorEstado">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="0"/>
+                      <StringArray count="4">
+                        <StringItem index="0" value="Disponible"/>
+                        <StringItem index="1" value="Disponible-limpieza"/>
+                        <StringItem index="2" value="Ocupada"/>
+                        <StringItem index="3" value="Ocupada-limpieza"/>
+                      </StringArray>
                     </Property>
                   </Properties>
                   <Events>

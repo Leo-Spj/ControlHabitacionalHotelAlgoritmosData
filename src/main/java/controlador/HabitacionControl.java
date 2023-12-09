@@ -50,7 +50,8 @@ public class HabitacionControl {
     public Habitacion buscarHabitacionporId(int id) {
         Habitacion habitacion = new Habitacion(0,0,0,0);
         habitacion.setId(id);
-        int indice = listaHabitaciones.getBusqueda().secuencial(listaHabitaciones, habitacion, new Habitacion.ComparadorPorId());
+        listaHabitaciones.getOrdenamiento().deBurbuja(listaHabitaciones, new Habitacion.ComparadorPorId());
+        int indice = listaHabitaciones.getBusqueda().binaria(listaHabitaciones, habitacion, new Habitacion.ComparadorPorId());
         return listaHabitaciones.obtenerPorIndice(indice);
     }
 
