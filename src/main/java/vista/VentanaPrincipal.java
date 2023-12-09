@@ -9,7 +9,11 @@ import modelo.Habitacion;
 import modelo.Hotel;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+import java.awt.*;
 
 /**
  *
@@ -33,6 +37,29 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
 
         datosDePrueba();
+    }
+
+    public class HabitacionCellRenderer extends DefaultTableCellRenderer {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            String estado = (String) table.getValueAt(row, 5); // Asume que "Estado" es la sexta columna (índice 5)
+
+            if ("Ocupada".equals(estado)) {
+                c.setBackground(Color.RED);
+            } else if ("Ocupada-limpieza".equals(estado)) {
+                c.setBackground(Color.ORANGE);
+            } else if ("Disponible".equals(estado)) {
+                c.setBackground(Color.GREEN);
+            } else if ("Disponible-limpieza".equals(estado)) {
+                c.setBackground(Color.YELLOW);
+            } else {
+                c.setBackground(table.getBackground());
+            }
+
+            return c;
+        }
     }
 
     public void datosDePrueba(){
@@ -100,6 +127,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             });
         }
 
+        TableColumnModel columnModel = tbl_habitaciones.getColumnModel();
+        TableColumn column = columnModel.getColumn(5);
+        column.setPreferredWidth(170);
+
+        HabitacionCellRenderer cellRenderer = new HabitacionCellRenderer();
+        tbl_habitaciones.getColumnModel().getColumn(5).setCellRenderer(cellRenderer);
+
         reporteDelDia(hotelEncontrado.getId());
     }
 
@@ -146,6 +180,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 });
             }
         }
+
+        TableColumnModel columnModel = tbl_habitaciones.getColumnModel();
+        TableColumn column = columnModel.getColumn(5);
+        column.setPreferredWidth(170);
+
+        HabitacionCellRenderer cellRenderer = new HabitacionCellRenderer();
+        tbl_habitaciones.getColumnModel().getColumn(5).setCellRenderer(cellRenderer);
     }
 
     //obtener hotel por el id_nombre del combobox
@@ -384,21 +425,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         tbl_habitaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Piso", "Puerta", "Camas", "Precio", "Estado"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tbl_habitaciones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbl_habitacionesMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tbl_habitaciones);
+        if (tbl_habitaciones.getColumnModel().getColumnCount() > 0) {
+            tbl_habitaciones.getColumnModel().getColumn(5).setResizable(false);
+            tbl_habitaciones.getColumnModel().getColumn(5).setPreferredWidth(300);
+        }
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
