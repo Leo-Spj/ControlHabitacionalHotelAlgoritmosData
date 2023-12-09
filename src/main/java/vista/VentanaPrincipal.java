@@ -1296,7 +1296,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     }
                 }
 
-                hotel.getHabitaciones().getHabitacionesOrdenadasPorPiso();
+                //hotel.getHabitaciones().getHabitacionesOrdenadasPorPiso();
                 cargarTabla(hotel.getId());
                 reporteDelDia(hotel.getId());
 
@@ -1329,7 +1329,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     }
                 }
 
-                hotel.getHabitaciones().getHabitacionesOrdenadasPorPiso();
+                //hotel.getHabitaciones().getHabitacionesOrdenadasPorPiso();
                 cargarTabla(hotel.getId());
                 reporteDelDia(hotel.getId());
 

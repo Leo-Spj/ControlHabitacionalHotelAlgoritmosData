@@ -79,30 +79,26 @@ public class HabitacionControl {
 
     // cuando se antiende una habitacion por cola la primera habitacion que esté disponible es la que se atiende y cambia su estado a ocupada
     public void atenderHabitacionPorCola(){
-        // ordenar las habitaciones por piso
-        ListaDoblePilaCola<Habitacion> habitacionesOrdenadasPorPiso = listaHabitaciones.getOrdenamiento().porInsercion(listaHabitaciones, new Habitacion.ComparadorPorPiso());
 
         // creo esta habitacion ficticia para usar el metodo de busqueda
         Habitacion habitacion = new Habitacion(0,0,0,0);
         habitacion.setEstado("Disponible");
 
         // usando el metodo de busqueda
-        int indice = listaHabitaciones.getBusqueda().secuencial(habitacionesOrdenadasPorPiso, habitacion, new Habitacion.ComparadorPorEstado());
+        int indice = listaHabitaciones.getBusqueda().secuencial(listaHabitaciones, habitacion, new Habitacion.ComparadorPorEstado());
         if (indice != -1) {
-            habitacionesOrdenadasPorPiso.obtenerPorIndice(indice).setEstado("Ocupada");
+            listaHabitaciones.obtenerPorIndice(indice).setEstado("Ocupada");
         }
     }
 
     public void atenderHabitacionPorPila(){
-        ListaDoblePilaCola<Habitacion> habitacionesOrdenadasPorPiso = listaHabitaciones.getOrdenamiento().porInsercion(listaHabitaciones, new Habitacion.ComparadorPorPiso());
-
         Habitacion habitacion = new Habitacion(0,0,0,0);
         habitacion.setEstado("Disponible");
 
         // uso la busqueda en reversa
-        int indice = listaHabitaciones.getBusqueda().secuencialReversa(habitacionesOrdenadasPorPiso, habitacion, new Habitacion.ComparadorPorEstado());
+        int indice = listaHabitaciones.getBusqueda().secuencialReversa(listaHabitaciones, habitacion, new Habitacion.ComparadorPorEstado());
         if (indice != -1) {
-            habitacionesOrdenadasPorPiso.obtenerPorIndice(indice).setEstado("Ocupada");
+            listaHabitaciones.obtenerPorIndice(indice).setEstado("Ocupada");
         }
     }
 
