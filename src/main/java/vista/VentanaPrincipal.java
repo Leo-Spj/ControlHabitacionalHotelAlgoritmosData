@@ -39,12 +39,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         datosDePrueba();
     }
 
-    public class HabitacionCellRenderer extends DefaultTableCellRenderer {
+    public class HabitacionCellRenderer extends DefaultTableCellRenderer { // Para cambiar el color de la celda dependiendo del estado de la habitacion
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-            String estado = (String) table.getValueAt(row, 5); // Asume que "Estado" es la sexta columna (índice 5)
+            String estado = (String) table.getValueAt(row, 5); // "Estado" es la sexta columna (índice 5)
 
             if ("Ocupada".equals(estado)) {
                 c.setBackground(Color.RED);
@@ -1173,6 +1173,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         String item = (String) cbx_selectSucursal.getSelectedItem();
         if (item != null) {
+
             String nombreSucursal = cbx_selectSucursal.getSelectedItem().toString();
             Hotel hotel = obtenerHotelPorIdNombre(nombreSucursal);
 
@@ -1182,7 +1183,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             int camas = (int) spnr_actualizarHab_camas.getValue();
             double precio = Double.parseDouble(txf_actualizarHab_precio.getText());
 
-            if (piso == 0 || puerta == 0 || camas == 0 || precio < 0) {
+            if (piso == 0 || puerta <= 0 || camas <= 0 || precio < 0) {
                 JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
             } else{
 

@@ -33,17 +33,10 @@ public class ListaDoblePilaCola<T> {
         return ordenamiento;
     }
 
-    public void setOrdenamiento(Ordenamiento<T> ordenamiento) {
-        this.ordenamiento = ordenamiento;
-    }
-
     public Busqueda<T> getBusqueda() {
         return busqueda;
     }
 
-    public void setBusqueda(Busqueda<T> busqueda) {
-        this.busqueda = busqueda;
-    }
 
     public boolean estaVacia() {
         return this.primero == null;
@@ -129,7 +122,7 @@ public class ListaDoblePilaCola<T> {
         this.tamanio++;
     }
 
-    public void actualizarHabitacion(T dato, Comparator<T> criterioBusqueda){
+    public void actualizar(T dato, Comparator<T> criterioBusqueda){
         Nodo<T> aux = this.primero;
         while (aux != null && criterioBusqueda.compare(dato, aux.getDato()) != 0) {
             aux = aux.getDerecho_siguiente();
@@ -150,28 +143,6 @@ public class ListaDoblePilaCola<T> {
             return aux.getDato();
         }
         return null;
-    }
-
-    public void eliminarPorIndice(int indice) {
-        if (indice >= 0 && indice < this.tamanio) {
-            if (indice == 0) {
-                this.primero = this.primero.getDerecho_siguiente();
-                this.primero.setIzquierdo_anterior(null);
-            } else if (indice == this.tamanio - 1) {
-                this.ultimo = this.ultimo.getIzquierdo_anterior();
-                this.ultimo.setDerecho_siguiente(null);
-            } else {
-                Nodo<T> aux = this.primero;
-                int contador = 0;
-                while (contador < indice) {
-                    aux = aux.getDerecho_siguiente();
-                    contador++;
-                }
-                aux.getIzquierdo_anterior().setDerecho_siguiente(aux.getDerecho_siguiente());
-                aux.getDerecho_siguiente().setIzquierdo_anterior(aux.getIzquierdo_anterior());
-            }
-            this.tamanio--;
-        }
     }
 
 }

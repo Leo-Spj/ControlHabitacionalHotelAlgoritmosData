@@ -30,7 +30,7 @@ public class HabitacionControl {
         habitacion.setEstado(habitacionEncontrada.getEstado());
 
         //si hay hay una habitacion con el mismo piso y puerta lazan una excepcion, a no ser que sea la misma habitacion
-        if (indice != -1){
+        if (indice != -1) {
             for (int i = 0; i < listaHabitaciones.getTamanio(); i++) {
                 if (listaHabitaciones.obtenerPorIndice(i).getPiso() == piso
                         && listaHabitaciones.obtenerPorIndice(i).getNumero() == numero
@@ -39,10 +39,7 @@ public class HabitacionControl {
                 }
             }
             // si no hay una habitacion con el mismo piso y puerta, actualiza la habitacion
-            listaHabitaciones.actualizarHabitacion(habitacion, new Habitacion.ComparadorPorId());
-
-            //ordenando la lista por piso y numero
-            setListaHabitaciones(getHabitacionesOrdenadasPorPiso());
+            listaHabitaciones.actualizar(habitacion, new Habitacion.ComparadorPorId());
 
         }
     }
