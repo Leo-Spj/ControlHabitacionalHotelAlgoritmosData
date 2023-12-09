@@ -198,10 +198,10 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="spnr_camas_actualizar" alignment="0" pref="72" max="32767" attributes="0"/>
-                                      <Component id="spnr_puerta_actualizar" max="32767" attributes="0"/>
+                                      <Component id="spnr_actualizarHab_camas" alignment="0" pref="72" max="32767" attributes="0"/>
+                                      <Component id="spnr_actualizarHab_puerta" max="32767" attributes="0"/>
                                       <Component id="jLabel3" alignment="0" min="-2" pref="33" max="-2" attributes="0"/>
-                                      <Component id="spnr_piso_actualizar" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="spnr_actualizarHab_piso" alignment="1" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
@@ -221,7 +221,7 @@
                                           <Component id="txf_idHabitacion" min="-2" pref="33" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
-                                          <Component id="txf_precio_actualizar" min="-2" pref="71" max="-2" attributes="0"/>
+                                          <Component id="txf_actualizarHab_precio" min="-2" pref="71" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
                                           <Component id="btn_actualizarHabitacion" min="-2" max="-2" attributes="0"/>
                                       </Group>
@@ -243,20 +243,20 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="spnr_piso_actualizar" min="-2" max="-2" attributes="0"/>
+                          <Component id="spnr_actualizarHab_piso" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="spnr_puerta_actualizar" min="-2" max="-2" attributes="0"/>
+                          <Component id="spnr_actualizarHab_puerta" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="spnr_camas_actualizar" min="-2" max="-2" attributes="0"/>
+                          <Component id="spnr_actualizarHab_camas" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txf_precio_actualizar" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txf_actualizarHab_precio" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btn_actualizarHabitacion" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="24" max="32767" attributes="0"/>
@@ -280,10 +280,10 @@
                     <Property name="text" type="java.lang.String" value="Piso"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JSpinner" name="spnr_piso_actualizar">
+                <Component class="javax.swing.JSpinner" name="spnr_actualizarHab_piso">
                   <Properties>
                     <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                      <SpinnerModel initial="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                      <SpinnerModel initial="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -292,10 +292,10 @@
                     <Property name="text" type="java.lang.String" value="Puerta"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JSpinner" name="spnr_puerta_actualizar">
+                <Component class="javax.swing.JSpinner" name="spnr_actualizarHab_puerta">
                   <Properties>
                     <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                      <SpinnerModel initial="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                      <SpinnerModel initial="1" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -304,10 +304,10 @@
                     <Property name="text" type="java.lang.String" value="Camas"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JSpinner" name="spnr_camas_actualizar">
+                <Component class="javax.swing.JSpinner" name="spnr_actualizarHab_camas">
                   <Properties>
                     <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                      <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                      <SpinnerModel initial="1" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -316,7 +316,7 @@
                     <Property name="text" type="java.lang.String" value="Precio"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txf_precio_actualizar">
+                <Component class="javax.swing.JTextField" name="txf_actualizarHab_precio">
                 </Component>
                 <Component class="javax.swing.JButton" name="btn_actualizarHabitacion">
                   <Properties>
@@ -1190,8 +1190,18 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JSpinner" name="spnr_crearHab_piso">
+                      <Properties>
+                        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+                          <SpinnerModel initial="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                        </Property>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JSpinner" name="spnr_crearHab_puerta">
+                      <Properties>
+                        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+                          <SpinnerModel initial="1" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                        </Property>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel29">
                       <Properties>

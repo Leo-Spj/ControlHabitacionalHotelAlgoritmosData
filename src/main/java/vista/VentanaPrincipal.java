@@ -130,13 +130,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txf_idHabitacion = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        spnr_piso_actualizar = new javax.swing.JSpinner();
+        spnr_actualizarHab_piso = new javax.swing.JSpinner();
         jLabel4 = new javax.swing.JLabel();
-        spnr_puerta_actualizar = new javax.swing.JSpinner();
+        spnr_actualizarHab_puerta = new javax.swing.JSpinner();
         jLabel5 = new javax.swing.JLabel();
-        spnr_camas_actualizar = new javax.swing.JSpinner();
+        spnr_actualizarHab_camas = new javax.swing.JSpinner();
         jLabel6 = new javax.swing.JLabel();
-        txf_precio_actualizar = new javax.swing.JTextField();
+        txf_actualizarHab_precio = new javax.swing.JTextField();
         btn_actualizarHabitacion = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -250,22 +250,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel3.setText("Piso");
 
-        spnr_piso_actualizar.setModel(new javax.swing.SpinnerNumberModel());
+        spnr_actualizarHab_piso.setModel(new javax.swing.SpinnerNumberModel(1, null, null, 1));
 
         jLabel4.setText("Puerta");
 
-        spnr_puerta_actualizar.setModel(new javax.swing.SpinnerNumberModel());
+        spnr_actualizarHab_puerta.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         jLabel5.setText("Camas");
 
-        spnr_camas_actualizar.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        spnr_actualizarHab_camas.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         jLabel6.setText("Precio");
 
         btn_actualizarHabitacion.setText("Actualizar");
         btn_actualizarHabitacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_actualizarHabitacionActionPerformed(evt);
+                try {
+                    btn_actualizarHabitacionActionPerformed(evt);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -278,10 +282,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(spnr_camas_actualizar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-                            .addComponent(spnr_puerta_actualizar)
+                            .addComponent(spnr_actualizarHab_camas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+                            .addComponent(spnr_actualizarHab_puerta)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(spnr_piso_actualizar))
+                            .addComponent(spnr_actualizarHab_piso))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,7 +300,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txf_idHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(txf_precio_actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txf_actualizarHab_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btn_actualizarHabitacion)))
                         .addGap(25, 25, 25))))
@@ -311,20 +315,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spnr_piso_actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(spnr_actualizarHab_piso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spnr_puerta_actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(spnr_actualizarHab_puerta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spnr_camas_actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(spnr_actualizarHab_camas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txf_precio_actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txf_actualizarHab_precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_actualizarHabitacion))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
@@ -818,6 +822,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jLabel28.setText("Puerta");
 
+        spnr_crearHab_piso.setModel(new javax.swing.SpinnerNumberModel(1, null, null, 1));
+
+        spnr_crearHab_puerta.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+
         jLabel29.setText("Camas");
 
         spnr_crearHab_camas.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
@@ -1045,14 +1053,39 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             String nombreSucursal = cbx_selectSucursal.getSelectedItem().toString();
             Hotel hotel = obtenerHotelPorIdNombre(nombreSucursal);
 
-            if (hotel != null && hotel.getHabitaciones().getCantidadHabitaciones()> 0) {
+            if (hotel != null) {
                 cargarTabla(hotel.getId());
             }
         }
     }//GEN-LAST:event_cbx_selectSucursalItemStateChanged
 
-    private void btn_actualizarHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarHabitacionActionPerformed
-        // TODO add your handling code here:
+    private void btn_actualizarHabitacionActionPerformed(java.awt.event.ActionEvent evt) throws Exception {//GEN-FIRST:event_btn_actualizarHabitacionActionPerformed
+
+        String item = (String) cbx_selectSucursal.getSelectedItem();
+        if (item != null) {
+            String nombreSucursal = cbx_selectSucursal.getSelectedItem().toString();
+            Hotel hotel = obtenerHotelPorIdNombre(nombreSucursal);
+
+            int idHabitacion = Integer.parseInt(txf_idHabitacion.getText());
+            int piso = (int) spnr_actualizarHab_piso.getValue();
+            int puerta = (int) spnr_actualizarHab_puerta.getValue();
+            int camas = (int) spnr_actualizarHab_camas.getValue();
+            double precio = Double.parseDouble(txf_actualizarHab_precio.getText());
+
+            if (piso == 0 || puerta == 0 || camas == 0 || precio < 0) {
+                JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+            } else{
+
+                try {
+                    hotelControl.actualizarHabitacion(hotel.getId(), idHabitacion, piso, puerta, camas, precio);
+                    cargarTabla(hotel.getId());
+                    JOptionPane.showMessageDialog(null, "Se ha actualizado la habitación");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Ya existe una habitación con ese número de puerta.");
+                }
+
+            }
+        }
     }//GEN-LAST:event_btn_actualizarHabitacionActionPerformed
 
     private void btn_ordenarPorPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ordenarPorPisoActionPerformed
@@ -1076,7 +1109,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_atenderPorPilaActionPerformed
 
     private void tbl_habitacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_habitacionesMouseClicked
-        // TODO add your handling code here:
+
+        int fila = tbl_habitaciones.getSelectedRow();
+        if (fila != -1) {
+            String idHabitacion = tbl_habitaciones.getValueAt(fila, 0).toString();
+            String piso = tbl_habitaciones.getValueAt(fila, 1).toString();
+            String puerta = tbl_habitaciones.getValueAt(fila, 2).toString();
+            String camas = tbl_habitaciones.getValueAt(fila, 3).toString();
+            String precio = tbl_habitaciones.getValueAt(fila, 4).toString();
+
+            txf_idHabitacion.setText(idHabitacion);
+            spnr_actualizarHab_piso.setValue(Integer.parseInt(piso));
+            spnr_actualizarHab_puerta.setValue(Integer.parseInt(puerta));
+            spnr_actualizarHab_camas.setValue(Integer.parseInt(camas));
+            txf_actualizarHab_precio.setText(precio);
+        }
     }//GEN-LAST:event_tbl_habitacionesMouseClicked
 
 
@@ -1176,13 +1223,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JSpinner spnr_camas_actualizar;
+    private javax.swing.JSpinner spnr_actualizarHab_camas;
+    private javax.swing.JSpinner spnr_actualizarHab_piso;
+    private javax.swing.JSpinner spnr_actualizarHab_puerta;
     private javax.swing.JSpinner spnr_crearHab_camas;
     private javax.swing.JSpinner spnr_crearHab_piso;
     private javax.swing.JSpinner spnr_crearHab_puerta;
-    private javax.swing.JSpinner spnr_piso_actualizar;
-    private javax.swing.JSpinner spnr_puerta_actualizar;
     private javax.swing.JTable tbl_habitaciones;
+    private javax.swing.JTextField txf_actualizarHab_precio;
     private javax.swing.JTextField txf_actualizarSucursal_direc;
     private javax.swing.JTextField txf_actualizarSucursal_distrito;
     private javax.swing.JTextField txf_actualizarSucursal_nombre;
@@ -1196,6 +1244,5 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txf_idSucursal;
     private javax.swing.JTextField txf_monto_disponibles;
     private javax.swing.JTextField txf_monto_ocupadas;
-    private javax.swing.JTextField txf_precio_actualizar;
     // End of variables declaration//GEN-END:variables
 }
