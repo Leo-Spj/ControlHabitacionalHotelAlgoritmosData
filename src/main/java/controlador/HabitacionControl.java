@@ -2,8 +2,9 @@ package controlador;
 
 import modelo.Habitacion;
 import algoritmos.ListaDoblePilaCola;
+import modelo.MetodosComunes;
 
-public class HabitacionControl {
+public class HabitacionControl extends MetodosComunes<Habitacion> {
 
     private int id = 1;
 
@@ -25,7 +26,7 @@ public class HabitacionControl {
         Habitacion habitacion = new Habitacion(piso, numero, cantidadCamas, precioDia);
         habitacion.setId(id);
 
-        int indice = listaHabitaciones.getBusqueda().secuencial(listaHabitaciones, habitacion, new Habitacion.ComparadorPorId());
+        int indice = getBusqueda().secuencial(listaHabitaciones, habitacion, new Habitacion.ComparadorPorId());
         Habitacion habitacionEncontrada = listaHabitaciones.obtenerPorIndice(indice);
         habitacion.setEstado(habitacionEncontrada.getEstado());
 
@@ -47,8 +48,8 @@ public class HabitacionControl {
     public Habitacion buscarHabitacionporId(int id) {
         Habitacion habitacion = new Habitacion(0,0,0,0);
         habitacion.setId(id);
-        listaHabitaciones.getOrdenamiento().deBurbuja(listaHabitaciones, new Habitacion.ComparadorPorId());
-        int indice = listaHabitaciones.getBusqueda().binaria(listaHabitaciones, habitacion, new Habitacion.ComparadorPorId());
+        getOrdenamiento().deBurbuja(listaHabitaciones, new Habitacion.ComparadorPorId());
+        int indice = getBusqueda().binaria(listaHabitaciones, habitacion, new Habitacion.ComparadorPorId());
         return listaHabitaciones.obtenerPorIndice(indice);
     }
 
@@ -60,11 +61,11 @@ public class HabitacionControl {
     }
 
     public ListaDoblePilaCola<Habitacion> getHabitacionesOrdenadasPorPiso() {
-        return listaHabitaciones.getOrdenamiento().porInsercion(listaHabitaciones, new Habitacion.ComparadorPorPiso());
+        return getOrdenamiento().porInsercion(listaHabitaciones, new Habitacion.ComparadorPorPiso());
     }
 
     public ListaDoblePilaCola<Habitacion> getHabitacionesOrdenadasPorEstado() {
-        return listaHabitaciones.getOrdenamiento().deBurbuja(listaHabitaciones, new Habitacion.ComparadorPorEstado());
+        return getOrdenamiento().deBurbuja(listaHabitaciones, new Habitacion.ComparadorPorEstado());
     }
 
 
@@ -82,7 +83,7 @@ public class HabitacionControl {
         habitacion.setEstado("Disponible");
 
         // usando el metodo de busqueda
-        int indice = listaHabitaciones.getBusqueda().secuencial(listaHabitaciones, habitacion, new Habitacion.ComparadorPorEstado());
+        int indice = getBusqueda().secuencial(listaHabitaciones, habitacion, new Habitacion.ComparadorPorEstado());
         if (indice != -1) {
             listaHabitaciones.obtenerPorIndice(indice).setEstado("Ocupada");
         }
@@ -93,7 +94,7 @@ public class HabitacionControl {
         habitacion.setEstado("Disponible");
 
         // uso la busqueda en reversa
-        int indice = listaHabitaciones.getBusqueda().secuencialReversa(listaHabitaciones, habitacion, new Habitacion.ComparadorPorEstado());
+        int indice = getBusqueda().secuencialReversa(listaHabitaciones, habitacion, new Habitacion.ComparadorPorEstado());
         if (indice != -1) {
             listaHabitaciones.obtenerPorIndice(indice).setEstado("Ocupada");
         }

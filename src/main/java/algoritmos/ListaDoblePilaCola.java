@@ -4,9 +4,6 @@ import java.util.Comparator;
 
 public class ListaDoblePilaCola<T> {
 
-    private Ordenamiento<T> ordenamiento = new Ordenamiento<>();
-    private Busqueda<T> busqueda = new Busqueda<>();
-
     private Nodo<T> primero;
     private Nodo<T> ultimo;
     private int tamanio;
@@ -27,14 +24,6 @@ public class ListaDoblePilaCola<T> {
 
     public int getTamanio() {
         return this.tamanio;
-    }
-
-    public Ordenamiento<T> getOrdenamiento() {
-        return ordenamiento;
-    }
-
-    public Busqueda<T> getBusqueda() {
-        return busqueda;
     }
 
 

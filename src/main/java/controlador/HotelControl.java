@@ -1,14 +1,15 @@
 package controlador;
 
 import algoritmos.ListaDoblePilaCola;
-import modelo.Habitacion;
 import modelo.Hotel;
+import modelo.MetodosComunes;
 
-public class HotelControl {
+public class HotelControl extends MetodosComunes<Hotel> {
 
     private int id = 1;
     private ListaDoblePilaCola<Hotel> listaHoteles = new ListaDoblePilaCola<>();
 
+    // solo sirve para comparar, no tocar
     private Hotel hotelBuscar = new Hotel(); // hotel con datos falsos para poder buscarlo en la lista de hoteles mediante Comparator
 
 
@@ -31,8 +32,8 @@ public class HotelControl {
     public Hotel hotelEncontrado(int idHotel){
         hotelBuscar.setId(idHotel);
 
-        int indice = listaHoteles.getBusqueda().secuencial(listaHoteles, hotelBuscar, new Hotel.ComparadorPorId());
-        return listaHoteles.obtenerPorIndice(indice);
+        int indice = getBusqueda().secuencial(this.listaHoteles, hotelBuscar, new Hotel.ComparadorPorId());
+        return this.listaHoteles.obtenerPorIndice(indice);
     }
 
     public void agregarHabitacion(int idHotel, int piso, int numero, int cantidadCamas, double precioDia) {
