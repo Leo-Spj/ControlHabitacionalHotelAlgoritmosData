@@ -35,7 +35,7 @@ public class HotelControl extends MetodosComunes<Hotel> {
         return this.listaHoteles.obtenerPorIndice(indice);
     }
 
-    public void agregarHabitacion(int idHotel, int piso, int numero, int cantidadCamas, double precioDia) {
+    public void agregarHabitacion(int idHotel, int piso, int numero, int cantidadCamas, double precioDia) throws Exception {
         Hotel hotelEncontrado = hotelEncontrado(idHotel);
         hotelEncontrado.getHabitaciones().agregarHabitacion(piso, numero, cantidadCamas, precioDia);
     }

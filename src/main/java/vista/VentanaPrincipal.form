@@ -1241,6 +1241,9 @@
                           <SpinnerModel initial="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="spnr_crearHab_pisoStateChanged"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JSpinner" name="spnr_crearHab_puerta">
                       <Properties>

@@ -14,11 +14,15 @@ public class HabitacionControl extends MetodosComunes<Habitacion> {
         return listaHabitaciones.getTamanio();
     }
 
-    public void agregarHabitacion(int piso, int numero, int cantidadCamas, double precioDia) {
+    public void agregarHabitacion(int piso, int numero, int cantidadCamas, double precioDia) throws Exception {
         Habitacion habitacion = new Habitacion(piso, numero, cantidadCamas, precioDia);
-        habitacion.setId(id);
-        id++;
-        listaHabitaciones.insertarOrdenado(habitacion, new Habitacion.ComparadorPorPiso()); // se ingresan ordenados por piso <---
+        if(getBusqueda().secuencial(listaHabitaciones, habitacion, new Habitacion.ComparadorPorPisoPuerta())==-1){
+            habitacion.setId(id);
+            id++;
+            listaHabitaciones.insertarOrdenado(habitacion, new Habitacion.ComparadorPorPisoPuerta()); // se ingresan ordenados por piso <---
+        } else {
+            throw new Exception("Ya existe una habitacion con el mismo piso y numero");
+        }
     }
 
     public void actualizarHabitacion(int id, int piso, int numero, int cantidadCamas, double precioDia) throws Exception {
@@ -33,7 +37,7 @@ public class HabitacionControl extends MetodosComunes<Habitacion> {
         if (indice != -1) {
             for (int i = 0; i < listaHabitaciones.getTamanio(); i++) {
                 if (listaHabitaciones.obtenerPorIndice(i).getPiso() == piso
-                        && listaHabitaciones.obtenerPorIndice(i).getNumero() == numero
+                        && listaHabitaciones.obtenerPorIndice(i).getPuerta() == numero
                         && listaHabitaciones.obtenerPorIndice(i).getId() != id) {
                     throw new Exception("Ya existe una habitacion con el mismo piso y numero");
                 }
@@ -60,7 +64,7 @@ public class HabitacionControl extends MetodosComunes<Habitacion> {
     }
 
     public ListaDoblePilaCola<Habitacion> getHabitacionesOrdenadasPorPiso() {
-        return getOrdenamiento().porInsercion(listaHabitaciones, new Habitacion.ComparadorPorPiso());
+        return getOrdenamiento().porInsercion(listaHabitaciones, new Habitacion.ComparadorPorPisoPuerta());
     }
 
     public ListaDoblePilaCola<Habitacion> getHabitacionesOrdenadasPorEstado() {

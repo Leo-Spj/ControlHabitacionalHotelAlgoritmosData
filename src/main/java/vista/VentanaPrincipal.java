@@ -30,11 +30,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     DefaultTableModel model = new DefaultTableModel();
 
 
-    public VentanaPrincipal() {
+    public VentanaPrincipal() throws Exception {
         initComponents();
 
         // Centrar ventana
         this.setLocationRelativeTo(null);
+
+        //seteo de columnas y nombres en la tabla
+        model.setColumnCount(0);
+        model.addColumn("ID");
+        model.addColumn("Piso");
+        model.addColumn("Puerta");
+        model.addColumn("Camas");
+        model.addColumn("Precio");
+        model.addColumn("Estado");
 
         datosDePrueba();
     }
@@ -62,7 +71,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }
 
-    public void datosDePrueba(){
+    public void datosDePrueba() throws Exception {
         hotelControl.agregarHotel("Las Fores", "Pueblo Libre", "Calle las flores 420", "999666999");
 
         hotelControl.agregarHabitacion(1, 1, 1, 1, 100);
@@ -99,18 +108,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }
 
+    public void formatoDiseñoTabla(){
+        TableColumnModel columnModel = tbl_habitaciones.getColumnModel();
+        TableColumn column = columnModel.getColumn(5);
+        column.setPreferredWidth(170);
+
+        HabitacionCellRenderer cellRenderer = new HabitacionCellRenderer();
+        tbl_habitaciones.getColumnModel().getColumn(5).setCellRenderer(cellRenderer);
+    }
+
     public void cargarTabla(int idHotel){
         Hotel hotelEncontrado = hotelControl.hotelEncontrado(idHotel);
         model = (DefaultTableModel) tbl_habitaciones.getModel();
-
-        //seteo de columnas y nombres
-        model.setColumnCount(0);
-        model.addColumn("ID");
-        model.addColumn("Piso");
-        model.addColumn("Puerta");
-        model.addColumn("Camas");
-        model.addColumn("Precio");
-        model.addColumn("Estado");
 
         //limpia
         model.setRowCount(0);
@@ -120,21 +129,40 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             model.addRow(new Object[]{
                     hotelEncontrado.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).getId(),
                     hotelEncontrado.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).getPiso(),
-                    hotelEncontrado.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).getNumero(),
+                    hotelEncontrado.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).getPuerta(),
                     hotelEncontrado.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).getCantidadCamas(),
                     hotelEncontrado.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).getPrecioDia(),
                     hotelEncontrado.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).getEstado()
             });
         }
 
-        TableColumnModel columnModel = tbl_habitaciones.getColumnModel();
-        TableColumn column = columnModel.getColumn(5);
-        column.setPreferredWidth(170);
-
-        HabitacionCellRenderer cellRenderer = new HabitacionCellRenderer();
-        tbl_habitaciones.getColumnModel().getColumn(5).setCellRenderer(cellRenderer);
+        formatoDiseñoTabla();
 
         reporteDelDia(hotelEncontrado.getId());
+    }
+
+    public void cargarTablaPorEstado(int idHotel, String estado){
+        Hotel hotelEncontrado = hotelControl.hotelEncontrado(idHotel);
+        hotelEncontrado.getHabitaciones().getHabitacionesOrdenadasPorEstado();
+
+        //limpia
+        model.setRowCount(0);
+
+        //llenando
+        for (int i = 0; i < hotelEncontrado.getHabitaciones().getCantidadHabitaciones(); i++) {
+            if (hotelEncontrado.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).getEstado().equals(estado)){
+                model.addRow(new Object[]{
+                        hotelEncontrado.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).getId(),
+                        hotelEncontrado.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).getPiso(),
+                        hotelEncontrado.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).getPuerta(),
+                        hotelEncontrado.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).getCantidadCamas(),
+                        hotelEncontrado.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).getPrecioDia(),
+                        hotelEncontrado.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).getEstado()
+                });
+            }
+        }
+
+        formatoDiseñoTabla();
     }
 
     public void cargarTablaPorPiso(int idHotel){
@@ -149,44 +177,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         hotelEncontrado.getHabitaciones().getHabitacionesOrdenadasPorEstado();
 
         cargarTabla(idHotel);
-    }
-
-    public void cargarTablaPorEstado(int idHotel, String estado){
-        Hotel hotelEncontrado = hotelControl.hotelEncontrado(idHotel);
-        hotelEncontrado.getHabitaciones().getHabitacionesOrdenadasPorEstado();
-
-        //seteo de columnas y nombres
-        model.setColumnCount(0);
-        model.addColumn("ID");
-        model.addColumn("Piso");
-        model.addColumn("Puerta");
-        model.addColumn("Camas");
-        model.addColumn("Precio");
-        model.addColumn("Estado");
-
-        //limpia
-        model.setRowCount(0);
-
-        //llenando
-        for (int i = 0; i < hotelEncontrado.getHabitaciones().getCantidadHabitaciones(); i++) {
-            if (hotelEncontrado.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).getEstado().equals(estado)){
-                model.addRow(new Object[]{
-                        hotelEncontrado.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).getId(),
-                        hotelEncontrado.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).getPiso(),
-                        hotelEncontrado.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).getNumero(),
-                        hotelEncontrado.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).getCantidadCamas(),
-                        hotelEncontrado.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).getPrecioDia(),
-                        hotelEncontrado.getHabitaciones().getListaHabitaciones().obtenerPorIndice(i).getEstado()
-                });
-            }
-        }
-
-        TableColumnModel columnModel = tbl_habitaciones.getColumnModel();
-        TableColumn column = columnModel.getColumn(5);
-        column.setPreferredWidth(170);
-
-        HabitacionCellRenderer cellRenderer = new HabitacionCellRenderer();
-        tbl_habitaciones.getColumnModel().getColumn(5).setCellRenderer(cellRenderer);
     }
 
     //obtener hotel por el id_nombre del combobox
@@ -205,6 +195,41 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         double montoDisponibles = hotelControl.reporteHabitacionesDisponibles(idHotel);
         txf_monto_ocupadas.setText(String.valueOf(montoOcupadas));
         txf_monto_disponibles.setText(String.valueOf(montoDisponibles));
+    }
+
+    public int siguientePuertaDisponible(int piso){
+        String nombreSucursal = cbx_gestion_selectSucursal.getSelectedItem().toString();
+        Hotel hotel = obtenerHotelPorIdNombre(nombreSucursal);
+
+        hotel.getHabitaciones().getHabitacionesOrdenadasPorPiso();
+
+        int piso_spnr = (int) spnr_crearHab_piso.getValue();
+        Habitacion habCoincidencia = new Habitacion();
+        habCoincidencia.setPiso(piso_spnr);
+
+        int indice_hab = hotel.getHabitaciones().getBusqueda().secuencialReversa(hotel.getHabitaciones().getListaHabitaciones(), habCoincidencia, new Habitacion.ComparadorPorPiso());
+
+        if(indice_hab != -1) {
+            Habitacion hab = hotel.getHabitaciones().getListaHabitaciones().obtenerPorIndice(indice_hab);
+            int puerta = hab.getPuerta();
+
+            int i = puerta + 1;
+            return i;
+        } else {
+            return 1;
+        }
+
+    }
+
+    public void disparadorSiguientePuertaDisponible(){
+        String nombreSucursal = cbx_gestion_selectSucursal.getSelectedItem().toString();
+        Hotel hotel = obtenerHotelPorIdNombre(nombreSucursal);
+
+        int piso = (int) spnr_crearHab_piso.getValue();
+
+        int sigPuertaDisponible = siguientePuertaDisponible(piso);
+
+        spnr_crearHab_puerta.setValue(sigPuertaDisponible);
     }
 
     /**
@@ -940,6 +965,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel28.setText("Puerta");
 
         spnr_crearHab_piso.setModel(new javax.swing.SpinnerNumberModel(1, null, null, 1));
+        spnr_crearHab_piso.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spnr_crearHab_pisoStateChanged(evt);
+            }
+        });
 
         spnr_crearHab_puerta.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
@@ -952,7 +982,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btn_crearHab.setText("Crear");
         btn_crearHab.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_crearHabActionPerformed(evt);
+                try {
+                    btn_crearHabActionPerformed(evt);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -1104,6 +1138,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 txf_actualizarSucursal_distrito.setText(hotel.getDistrito());
                 txf_actualizarSucursal_direc.setText(hotel.getDireccion());
                 txf_actualizarSucursal_telefono.setText(hotel.getTelefono());
+
+                disparadorSiguientePuertaDisponible();
             }
         }
 
@@ -1141,7 +1177,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btn_actualizarSucursalActionPerformed
-    private void btn_crearHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crearHabActionPerformed
+
+    private void spnr_crearHab_pisoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnr_crearHab_pisoStateChanged
+        disparadorSiguientePuertaDisponible();
+    }//GEN-LAST:event_spnr_crearHab_pisoStateChanged
+
+    private void btn_crearHabActionPerformed(java.awt.event.ActionEvent evt) throws Exception {//GEN-FIRST:event_btn_crearHabActionPerformed
 
         String nombreSucursal = cbx_gestion_selectSucursal.getSelectedItem().toString();
         Hotel hotel = obtenerHotelPorIdNombre(nombreSucursal);
@@ -1151,16 +1192,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         int camas = (int) spnr_crearHab_camas.getValue();
         double precio = Double.parseDouble(txf_crearHab_precio.getText());
 
-        if (piso == 0 || puerta == 0 || camas == 0 || precio < 0) {
+        if (puerta == 0 || camas == 0 || precio < 0) {
             JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
         } else {
-            hotelControl.agregarHabitacion(hotel.getId(), piso, puerta, camas, precio);
-            cargarTabla(hotel.getId());
 
-            spnr_crearHab_puerta.setValue(puerta + 1);
-            cbx_selectSucursal.setSelectedItem(hotel.getId()+" - "+hotel.getNombre());
-            reporteDelDia(hotel.getId());
-            JOptionPane.showMessageDialog(null, "Se ha creado la habitación");
+            try{
+                hotelControl.agregarHabitacion(hotel.getId(), piso, puerta, camas, precio);
+                cargarTabla(hotel.getId());
+                spnr_crearHab_puerta.setValue(puerta + 1);
+                cbx_selectSucursal.setSelectedItem(hotel.getId()+" - "+hotel.getNombre());
+                reporteDelDia(hotel.getId());
+                JOptionPane.showMessageDialog(null, "Se ha creado la habitación");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Ya existe una habitación con ese número de puerta.");
+            }
+            disparadorSiguientePuertaDisponible();
         }
     }//GEN-LAST:event_btn_crearHabActionPerformed
 
@@ -1192,7 +1238,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             int camas = (int) spnr_actualizarHab_camas.getValue();
             double precio = Double.parseDouble(txf_actualizarHab_precio.getText());
 
-            if (piso == 0 || puerta <= 0 || camas <= 0 || precio < 0) {
+            if (puerta <= 0 || camas <= 0 || precio < 0) {
                 JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
             } else{
 
@@ -1227,6 +1273,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 reporteDelDia(hotel.getId());
 
                 txf_idHabitacion.setText("");
+                disparadorSiguientePuertaDisponible();
 
                 JOptionPane.showMessageDialog(null, "Se ha eliminado la habitación");
             } else {
@@ -1453,7 +1500,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaPrincipal().setVisible(true);
+                try {
+                    new VentanaPrincipal().setVisible(true);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
     }

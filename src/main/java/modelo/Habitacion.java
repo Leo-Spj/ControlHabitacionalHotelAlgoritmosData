@@ -6,17 +6,25 @@ public class Habitacion {
 
     private int id;
     private int piso;
-    private int numero;
+    private int puerta;
     private int cantidadCamas;
     private double precioDia;
     private String estado; // estado(disponible, ocupada, disponible-limpieza , en ocupada-limpieza)
 
-    public Habitacion( int piso, int numero, int cantidadCamas, double precioDia) {
+    public Habitacion(int piso, int puerta, int cantidadCamas, double precioDia) {
         this.piso = piso;
-        this.numero = numero;
+        this.puerta = puerta;
         this.cantidadCamas = cantidadCamas;
         this.precioDia = precioDia;
         this.estado = "Disponible";
+    }
+
+    public Habitacion() { // habitacion vacia para usarla en los comparadores
+        this.piso = 0;
+        this.puerta = 0;
+        this.cantidadCamas = 0;
+        this.precioDia = 0;
+        this.estado = "";
     }
 
     public int getId() {
@@ -27,12 +35,15 @@ public class Habitacion {
         this.id = id;
     }
 
-    public int getNumero() {
-        return numero;
+    public int getPuerta() {
+        return puerta;
     }
 
     public int getPiso() {
         return piso;
+    }
+    public void setPiso(int piso) {
+        this.piso = piso;
     }
 
     public int getCantidadCamas() {
@@ -56,7 +67,7 @@ public class Habitacion {
         return "Habitacion{" +
                 "id=" + id +
                 ", piso=" + piso +
-                ", numero=" + numero +
+                ", numero=" + puerta +
                 ", cantidadCamas=" + cantidadCamas +
                 ", precioDia=" + precioDia +
                 ", estado='" + estado + '\'' +
@@ -73,19 +84,29 @@ public class Habitacion {
         }
     }
 
-    public static class ComparadorPorPiso implements Comparator<Habitacion> {
+    public static class ComparadorPorPisoPuerta implements Comparator<Habitacion> {
         @Override
         public int compare(Habitacion o1, Habitacion o2) {
             int piso1 = o1.getPiso();
             int piso2 = o2.getPiso();
-            int numero1 = o1.getNumero();
-            int numero2 = o2.getNumero();
+            int numero1 = o1.getPuerta();
+            int numero2 = o2.getPuerta();
 
             if (piso1 == piso2) {
                 return numero1 - numero2;
             } else {
                 return piso1 - piso2;
             }
+        }
+    }
+
+    public static class ComparadorPorPiso implements Comparator<Habitacion> {
+        @Override
+        public int compare(Habitacion o1, Habitacion o2) {
+            int piso1 = o1.getPiso();
+            int piso2 = o2.getPiso();
+
+            return piso1 - piso2;
         }
     }
 
