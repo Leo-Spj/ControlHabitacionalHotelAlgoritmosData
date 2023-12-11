@@ -2,7 +2,6 @@ package controlador;
 
 import algoritmos.ListaDoblePilaCola;
 import modelo.Hotel;
-import modelo.MetodosComunes;
 
 public class HotelControl extends MetodosComunes<Hotel> {
 

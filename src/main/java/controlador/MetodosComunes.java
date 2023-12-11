@@ -1,4 +1,4 @@
-package modelo;
+package controlador;
 
 import algoritmos.Busqueda;
 import algoritmos.Ordenamiento;

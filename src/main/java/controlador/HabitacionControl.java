@@ -2,7 +2,6 @@ package controlador;
 
 import modelo.Habitacion;
 import algoritmos.ListaDoblePilaCola;
-import modelo.MetodosComunes;
 
 public class HabitacionControl extends MetodosComunes<Habitacion> {
 
