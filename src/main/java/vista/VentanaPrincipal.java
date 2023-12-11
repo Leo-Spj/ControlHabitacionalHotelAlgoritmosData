@@ -92,8 +92,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cargarTabla(1);
     }
 
-
-
     // por cada hotel se inserta en el combobox
     public void actualizandoComboBox(){
 
@@ -163,20 +161,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
 
         formatoDiseñoTabla();
-    }
-
-    public void cargarTablaPorPiso(int idHotel){
-        Hotel hotelEncontrado = hotelControl.hotelEncontrado(idHotel);
-        hotelEncontrado.getHabitaciones().getHabitacionesOrdenadasPorPiso();
-
-        cargarTabla(idHotel);
-    }
-
-    public void cargarTablaPorEstado(int idHotel){
-        Hotel hotelEncontrado = hotelControl.hotelEncontrado(idHotel);
-        hotelEncontrado.getHabitaciones().getHabitacionesOrdenadasPorEstado();
-
-        cargarTabla(idHotel);
     }
 
     //obtener hotel por el id_nombre del combobox
@@ -1289,7 +1273,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             String nombreSucursal = cbx_selectSucursal.getSelectedItem().toString();
             Hotel hotel = obtenerHotelPorIdNombre(nombreSucursal);
 
-            cargarTablaPorPiso(hotel.getId());
+            hotel.getHabitaciones().getHabitacionesOrdenadasPorPiso();
+            cargarTabla(hotel.getId());
         }
     }//GEN-LAST:event_btn_ordenarPorPisoActionPerformed
 
@@ -1300,7 +1285,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             String nombreSucursal = cbx_selectSucursal.getSelectedItem().toString();
             Hotel hotel = obtenerHotelPorIdNombre(nombreSucursal);
 
-            cargarTablaPorEstado(hotel.getId());
+            hotel.getHabitaciones().getHabitacionesOrdenadasPorEstado();
+            cargarTabla(hotel.getId());
         }
     }//GEN-LAST:event_btn_ordenarPorEstadoActionPerformed
 
