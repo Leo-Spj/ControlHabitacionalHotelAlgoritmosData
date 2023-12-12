@@ -1227,7 +1227,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             } else{
 
                 try {
-                    hotelControl.actualizarHabitacion(hotel.getId(), idHabitacion, piso, puerta, camas, precio);
+                    hotelControl.actualizarHabitacion(hotel.getId(), idHabitacion, piso, puerta, camas, precio);  // secuencial <--------
                     cargarTabla(hotel.getId());
                     reporteDelDia(hotel.getId());
 
@@ -1249,7 +1249,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             Hotel hotel = obtenerHotelPorIdNombre(nombreSucursal);
 
             int idHabitacion = Integer.parseInt(txf_idHabitacion.getText());
-            Habitacion habitacion = hotel.getHabitaciones().buscarHabitacionporId(idHabitacion);
+            Habitacion habitacion = hotel.getHabitaciones().buscarHabitacionporId(idHabitacion); // Ordenamiento Burbuja y Busqueda Binaria <------------
 
             if (habitacion != null) {
                 hotel.getHabitaciones().getListaHabitaciones().eliminarPorCriterio(habitacion, new Habitacion.ComparadorPorId());
@@ -1273,7 +1273,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             String nombreSucursal = cbx_selectSucursal.getSelectedItem().toString();
             Hotel hotel = obtenerHotelPorIdNombre(nombreSucursal);
 
-            hotel.getHabitaciones().getHabitacionesOrdenadasPorPiso();
+            hotel.getHabitaciones().getHabitacionesOrdenadasPorPiso(); // porInsercion <--------------
             cargarTabla(hotel.getId());
         }
     }//GEN-LAST:event_btn_ordenarPorPisoActionPerformed
@@ -1285,7 +1285,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             String nombreSucursal = cbx_selectSucursal.getSelectedItem().toString();
             Hotel hotel = obtenerHotelPorIdNombre(nombreSucursal);
 
-            hotel.getHabitaciones().getHabitacionesOrdenadasPorEstado();
+            hotel.getHabitaciones().getHabitacionesOrdenadasPorEstado(); // deBurbuja <--------------
             cargarTabla(hotel.getId());
         }
     }//GEN-LAST:event_btn_ordenarPorEstadoActionPerformed
@@ -1320,7 +1320,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             Hotel hotel = obtenerHotelPorIdNombre(nombreSucursal);
 
             try {
-                hotelControl.atenderHabitacionPorCola(hotel.getId());
+                hotelControl.atenderHabitacionPorCola(hotel.getId()); // Busqueda secuencial <----------------
                 cargarTabla(hotel.getId());
                 reporteDelDia(hotel.getId());
 
@@ -1340,7 +1340,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             Hotel hotel = obtenerHotelPorIdNombre(nombreSucursal);
 
             try {
-                hotelControl.atenderHabitacionPorPila(hotel.getId());
+                hotelControl.atenderHabitacionPorPila(hotel.getId()); // secuencialReversa <-----------
                 cargarTabla(hotel.getId());
                 reporteDelDia(hotel.getId());
 
@@ -1398,7 +1398,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
             if (hotel != null) {
                 int idHabitacion = Integer.parseInt(txf_idHabitacion.getText());
-                Habitacion habitacion = hotel.getHabitaciones().buscarHabitacionporId(idHabitacion);
+                Habitacion habitacion = hotel.getHabitaciones().buscarHabitacionporId(idHabitacion); // Ordenamiento Burbuja, Busqueda binaria <----------------
 
                 if (CheckBx_ocupada.isSelected()) {
                     if (CheckBx_limpieza.isSelected()) {
@@ -1431,7 +1431,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
             if (hotel != null) {
                 int idHabitacion = Integer.parseInt(txf_idHabitacion.getText());
-                Habitacion habitacion = hotel.getHabitaciones().buscarHabitacionporId(idHabitacion);
+                Habitacion habitacion = hotel.getHabitaciones().buscarHabitacionporId(idHabitacion); // Ordenamiento Burbuja, Busqueda binaria <----------------
 
                 if (CheckBx_ocupada.isSelected()) {
                     if (CheckBx_limpieza.isSelected()) {

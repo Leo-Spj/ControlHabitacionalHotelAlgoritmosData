@@ -51,8 +51,8 @@ public class HabitacionControl extends MetodosComunes<Habitacion> {
     public Habitacion buscarHabitacionporId(int id) {
         Habitacion habitacion = new Habitacion(0,0,0,0);
         habitacion.setId(id);
-        getOrdenamiento().deBurbuja(listaHabitaciones, new Habitacion.ComparadorPorId());
-        int indice = getBusqueda().binaria(listaHabitaciones, habitacion, new Habitacion.ComparadorPorId());
+        getOrdenamiento().deBurbuja(listaHabitaciones, new Habitacion.ComparadorPorId()); // Ordena por Burbuja <--------------
+        int indice = getBusqueda().binaria(listaHabitaciones, habitacion, new Habitacion.ComparadorPorId()); // Busqueda Binaria <-------------
         return listaHabitaciones.obtenerPorIndice(indice);
     }
 
